@@ -1,0 +1,43 @@
+{
+  "name": "知序 StudyDesk · DSE 笔记整理",
+  "short_name": "知序",
+  "description": "把 DSE 课堂材料整理成结构化笔记，按学科建立可复习的知识库。",
+  "lang": "zh-Hans",
+  "dir": "ltr",
+  "start_url": "/#/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait-primary",
+  "background_color": "#f4f0e7",
+  "theme_color": "#0b352e",
+  "categories": ["education", "productivity"],
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "整理新笔记",
+      "short_name": "整理",
+      "url": "/#/capture",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

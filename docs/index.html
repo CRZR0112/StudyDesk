@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>知序 StudyDesk · DSE 笔记整理与知识库</title>
+  <meta name="description" content="知序 StudyDesk 是面向香港 DSE 中三至中六的本地优先笔记整理工具：把图片、讲义和文字整理成结构化笔记、重点、公式与自测闪卡。非学校或考评局官方项目。" />
+  <meta name="theme-color" content="#0b352e" />
+  <meta property="og:title" content="知序 StudyDesk · DSE 笔记整理" />
+  <meta property="og:description" content="把散落的课堂材料，整理成一份能复习的知识库。本地优先，非官方项目。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/og.jpg" />
+  <link rel="icon" href="assets/favicon.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip" href="#main">跳到主要内容</a>
+
+  <header class="site-header">
+    <div class="wrap nav-wrap">
+      <a class="brand" href="#top" aria-label="知序 StudyDesk 首页">
+        <span class="brand-mark">知</span>
+        <span class="brand-copy"><strong>知序</strong><small>STUDYDESK</small></span>
+      </a>
+      <nav class="nav-links" aria-label="页面导航">
+        <a href="#features">功能</a>
+        <a href="#screens">预览</a>
+        <a href="#english">英文</a>
+        <a href="#privacy">隐私</a>
+        <a href="#faq">常见问题</a>
+      </nav>
+      <a class="nav-cta" href="#support">微信联系</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="dot"></span> DSE · S3–S6 · LOCAL FIRST</div>
+          <h1>把今天散落的笔记，<br /><em>整理成明天能复习的知识库。</em></h1>
+          <p class="lede">拍下课本、上传讲义 PDF，或粘贴一段课堂笔记。知序会把它拆成概念、重点、公式、易错点与自测闪卡，按你的选科整理好。</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#screens">看看它能做什么 <span aria-hidden="true">→</span></a>
+            <a class="btn btn-ghost" href="#support">微信联系</a>
+          </div>
+          <p class="hero-note">学生自建项目 · 非学校或香港考评局官方 · 当前为本地内测</p>
+        </div>
+        <figure class="hero-shot">
+          <img src="assets/dashboard.jpg" alt="知序 StudyDesk 总览界面：笔记数、学科覆盖、今日复习和最近笔记" width="1200" height="917" />
+          <figcaption>总览：笔记、学科覆盖、平均完整度与今日复习</figcaption>
+        </figure>
+      </div>
+      <div class="wrap hero-stats" aria-label="项目概览">
+        <div><strong>16</strong><span>学科模块</span></div>
+        <div><strong>174</strong><span>DSE 课题</span></div>
+        <div><strong>3</strong><span>种输入方式</span></div>
+        <div><strong>0</strong><span>默认第三方上传</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">WHAT IT DOES</div>
+            <h2>不是题库，<em>是你的笔记整理台。</em></h2>
+          </div>
+          <p>学校已经有足够的题目。知序只解决一件事：把散乱的材料变成能反复复习的结构。</p>
+        </div>
+
+        <div class="cards three">
+          <article class="card">
+            <span class="card-no">01</span>
+            <h3>把材料收进来</h3>
+            <p>图片 OCR、PDF / DOCX / PPTX / XLSX，或直接粘贴文字。保留原始材料，方便对照。</p>
+          </article>
+          <article class="card">
+            <span class="card-no">02</span>
+            <h3>拆成可复习的结构</h3>
+            <p>知识脉络、学习目标、核心概念、重点、公式、易错点、例子、作答框架和翻面闪卡。</p>
+          </article>
+          <article class="card">
+            <span class="card-no">03</span>
+            <h3>按你的选科归档</h3>
+            <p>中三至中六、核心科与选修科（含 M1 / M2），每个账号的笔记与设置独立保存。</p>
+          </article>
+        </div>
+
+        <div class="not-bank">
+          <div>
+            <span class="eyebrow">POSITIONING</span>
+            <h3>知序不替代学校题库，也不售卖 Past Papers。</h3>
+          </div>
+          <p>它帮你整理自己的笔记，并给出相关视频的搜索入口。题目、评卷参考和课程文件，请使用学校或考评局提供的授权资料。</p>
+        </div>
+
+        <div class="cards two feature-list">
+          <article class="feature">
+            <span class="feature-icon" aria-hidden="true">◎</span>
+            <div><h3>本地优先</h3><p>账号、笔记和附件保存在本机 SQLite；默认不上传第三方。</p></div>
+          </article>
+          <article class="feature">
+            <span class="feature-icon" aria-hidden="true">A</span>
+            <div><h3>英文知识稿</h3><p>非中文 / CSD 科目用本机 Ollama 转成英文；中文与 CSD 保留中文。</p></div>
+          </article>
+          <article class="feature">
+            <span class="feature-icon" aria-hidden="true">⌘</span>
+            <div><h3>学科模块</h3><p>16 个学科、174 个课题，按 S3–S6 与单元组织。</p></div>
+          </article>
+          <article class="feature">
+            <span class="feature-icon" aria-hidden="true">↗</span>
+            <div><h3>相关视频</h3><p>按笔记标题、课题和学科生成 YouTube / Khan Academy / Bing 视频搜索链接。</p></div>
+          </article>
+          <article class="feature">
+            <span class="feature-icon" aria-hidden="true">⌂</span>
+            <div><h3>局域网可用</h3><p>手机、平板连同一个 Wi-Fi 就能打开；主机上的 Ollama 负责 AI。</p></div>
+          </article>
+          <article class="feature">
+            <span class="feature-icon" aria-hidden="true">◌</span>
+            <div><h3>账号与选科</h3><p>注册时先选年级与科目，之后可修改；每个账号的笔记互相隔离。</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-tint" id="screens">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">SCREENS</div>
+            <h2>先看界面，再决定要不要用。</h2>
+          </div>
+          <p>截图来自实际运行的本地版本，不是概念稿。</p>
+        </div>
+        <div class="shots">
+          <figure class="shot wide">
+            <img src="assets/dashboard.jpg" alt="总览界面" width="1200" height="917" />
+            <figcaption><strong>总览</strong><span>笔记、学科覆盖、平均完整度和今日复习，一眼看到自己的知识库。</span></figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="assets/topics.jpg" alt="物理学科页，英文课题列表" width="1000" height="833" />
+            <figcaption><strong>学科与课题</strong><span>物理、化学、数学等非中文科目的课题名、单元名与学科简介为英文。</span></figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="assets/support.jpg" alt="微信客服面板" width="800" height="556" />
+            <figcaption><strong>微信客服</strong><span>右下角随时打开，显示二维码、微信号和使用说明。</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="english">
+      <div class="wrap english-grid">
+        <div>
+          <div class="eyebrow">LANGUAGE POLICY</div>
+          <h2>知识稿英文，<br /><em>中文与 CSD 除外。</em></h2>
+          <p class="body-copy">非中文 / CSD 科目的笔记知识稿会在保存时用本机 Ollama 转成英文。课题名、单元名和学科简介也已英文化；中国语文与公民与社会发展保留中文。</p>
+          <p class="small-note">英文为机器翻译，专有名词、公式和语义仍建议对照原图或原文校对。当前使用 <code>qwen2.5:1.5b</code>，速度约 5–10 秒/篇；更大的模型质量更好但更慢。</p>
+        </div>
+        <div class="policy-card">
+          <div class="policy-row"><span class="badge-en">EN</span><div><strong>非中文 / CSD 科目</strong><span>Biology · Chemistry · Physics · Mathematics · Economics · Geography · History · ICT · BAFS · M1 / M2</span></div></div>
+          <div class="policy-row"><span class="badge-zh">中</span><div><strong>中国语文 · 公民与社会发展</strong><span>保留中文知识稿，不做强制英文化</span></div></div>
+          <div class="policy-row"><span class="badge-muted">原</span><div><strong>原始材料与题目</strong><span>保留原文；需要时自行对照和润色</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="privacy">
+      <div class="wrap privacy-grid">
+        <div>
+          <div class="eyebrow">PRIVACY BY DEFAULT</div>
+          <h2>你的笔记，<br /><em>默认留在你的电脑。</em></h2>
+          <p>知序是本地优先项目：账号、笔记、附件和选科都存在本机 SQLite。AI 英文化默认调用本机 Ollama，材料不需要先上传到第三方。</p>
+          <p class="small-note">如果以后在设置中改用云端 OpenAI 兼容接口，材料会发送到你选择的服务商；请在配置前确认其隐私条款。</p>
+        </div>
+        <div class="privacy-list">
+          <div><span>01</span><p><strong>本地 SQLite</strong><br />笔记、账号、附件、设置都在本机。</p></div>
+          <div><span>02</span><p><strong>本地 Ollama</strong><br />AI 默认只消耗主机算力，不产生 API 账单。</p></div>
+          <div><span>03</span><p><strong>账号隔离</strong><br />每个账号的笔记与设置独立保存。</p></div>
+          <div><span>04</span><p><strong>可迁移</strong><br />支持 JSON 备份；以后可打包成 App。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="how">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="eyebrow">HOW IT WORKS</div><h2>三步，把输入变成复习材料。</h2></div>
+          <p>不需要先学一套复杂的笔记方法。</p>
+        </div>
+        <ol class="steps">
+          <li><span>01</span><div><h3>选择学科与课题</h3><p>按你的选科进入；也可以直接上传图片或文件。</p></div></li>
+          <li><span>02</span><div><h3>让知序整理</h3><p>提取文字，拆成概念、重点、公式、易错点与闪卡。</p></div></li>
+          <li><span>03</span><div><h3>阅读、搜索、复习</h3><p>在笔记库中按学科、年级、关键词找回；相关视频可跳转搜索。</p></div></li>
+        </ol>
+        <div class="local-run">
+          <div>
+            <span class="eyebrow">RUN LOCALLY</span>
+            <h3>这是本地项目，不是托管网页。</h3>
+            <p>GitHub Pages 只是项目介绍页。实际使用需要在自己的电脑上运行；手机通过同一 Wi-Fi 访问主机地址。</p>
+          </div>
+          <pre><code>npm install
+npm start
+
+# http://127.0.0.1:4173
+# 手机：http://&lt;主机局域网 IP&gt;:4173</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-tint" id="faq">
+      <div class="wrap faq-wrap">
+        <div class="section-head">
+          <div><div class="eyebrow">FAQ</div><h2>你可能想先问的。</h2></div>
+        </div>
+        <div class="faq">
+          <details open><summary>这是免费的吗？</summary><p>当前本地内测免费。未来可能在云同步、英文额度或学校版上做付费方案；具体以届时的价格页为准，不会自动扣费。</p></details>
+          <details><summary>它会把我的笔记上传吗？</summary><p>默认不会。笔记与附件保存在本机 SQLite；AI 默认调用本机 Ollama。若你主动配置云端 API，材料才会发送到对应服务商。</p></details>
+          <details><summary>手机可以用吗？</summary><p>可以。电脑和手机连同一个 Wi-Fi，打开主机打印的局域网地址即可。AI 仍由主机上的 Ollama 运行，手机不需要安装模型。</p></details>
+          <details><summary>为什么中国语文和 CSD 不是英文？</summary><p>这两科按中文学习与作答更自然，因此保留中文知识稿；其他科目默认英文化，减少英文授课学生的转换成本。</p></details>
+          <details><summary>有题库或每日一题吗？</summary><p>没有。题库、每日一题和答题统计已关闭。学校已有足够题目，知序专注笔记整理与复习结构。</p></details>
+          <details><summary>是学校或考评局官方项目吗？</summary><p>不是。知序由学生自行搭建，与学校、香港考试及评核局（HKEAA）无隶属关系。DSE 为香港考试及评核局举办之考试。</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section support-section" id="support">
+      <div class="wrap support-grid">
+        <div>
+          <div class="eyebrow">WECHAT SUPPORT</div>
+          <h2>有问题，<em>直接加微信。</em></h2>
+          <p>扫码，或复制微信号在微信里搜索添加。</p>
+          <div class="wechat-id">
+            <code>Rzcr0112</code>
+            <button type="button" id="copy-wechat" data-copy="Rzcr0112">复制微信号</button>
+          </div>
+          <p class="support-note">本站由学生自行搭建，非学校或考评局官方。在线时间不固定；留言后 24 小时内回复。</p>
+        </div>
+        <a class="qr-card" href="assets/wechat-qr.jpg" target="_blank" rel="noopener" aria-label="打开微信客服二维码大图">
+          <img src="assets/wechat-qr.jpg" alt="知序 StudyDesk 微信客服二维码" width="624" height="636" />
+          <span>微信扫码添加</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div class="brand footer-brand">
+        <span class="brand-mark">知</span>
+        <span class="brand-copy"><strong>知序 StudyDesk</strong><small>DSE NOTES, ORGANIZED.</small></span>
+      </div>
+      <p>面向香港 DSE 中三至中六的本地优先笔记整理工具。学生自建项目，非学校或考评局官方。</p>
+      <p class="copyright">© <span id="year">2026</span> 知序 StudyDesk · DSE 为香港考试及评核局举办之考试。</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const copyBtn = document.getElementById('copy-wechat');
+    copyBtn?.addEventListener('click', async () => {
+      const value = copyBtn.dataset.copy;
+      try {
+        await navigator.clipboard.writeText(value);
+        copyBtn.textContent = '已复制';
+        setTimeout(() => { copyBtn.textContent = '复制微信号'; }, 1800);
+      } catch {
+        window.prompt('复制微信号：', value);
+      }
+    });
+  </script>
+</body>
+</html>

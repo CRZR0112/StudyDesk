@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>知序 StudyDesk · DSE 笔记整理</title>
+    <meta
+      name="description"
+      content="面向香港 DSE 中三至中六的笔记整理平台：输入文字、文件或图片，自动归纳成结构化笔记，按学科整理成可复习的知识库。"
+    />
+    <meta name="theme-color" content="#0B352E" />
+    <meta name="color-scheme" content="light" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" type="image/png" href="/icons/icon-192.png" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <div class="sidebar-scrim" id="sidebar-scrim" data-action="close-sidebar"></div>
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-top">
+          <a class="brand" href="#/" aria-label="知序 StudyDesk 首页">
+            <span class="brand-mark">知</span>
+            <span class="brand-copy">
+              <strong>知序</strong>
+              <small>STUDYDESK</small>
+            </span>
+          </a>
+          <button class="icon-btn sidebar-close" data-action="close-sidebar" aria-label="关闭菜单">
+            <span data-icon="x"></span>
+          </button>
+        </div>
+
+        <a class="new-note-btn" href="#/capture">
+          <span data-icon="plus"></span>
+          <span data-i18n="整理新笔记">整理新笔记</span>
+          <kbd>N</kbd>
+        </a>
+
+        <nav class="main-nav" aria-label="主导航">
+          <a href="#/" data-nav="dashboard"><span data-icon="home"></span><span data-i18n="总览">总览</span></a>
+          <a href="#/notes" data-nav="notes"><span data-icon="notes"></span><span data-i18n="笔记库">笔记库</span></a>
+          <a href="#/subjects" data-nav="subjects"><span data-icon="subjects"></span><span data-i18n="学科模块">学科模块</span></a>
+          <a href="#/settings" data-nav="settings"><span data-icon="settings"></span><span data-i18n="设置与数据">设置与数据</span></a>
+        </nav>
+
+        <div class="sidebar-section">
+          <div class="sidebar-section-head">
+            <span data-i18n="我的学科">我的学科</span>
+            <a href="#/subjects" data-i18n="全部">全部</a>
+          </div>
+          <div class="sidebar-subjects" id="sidebar-subjects"></div>
+        </div>
+
+        <div class="sidebar-bottom">
+          <div class="countdown-card" id="countdown-card">
+            <span class="countdown-eyebrow">DSE COUNTDOWN</span>
+            <div class="countdown-main"><strong>—</strong><span>天</span></div>
+            <p>距离下一届 DSE 开考</p>
+          </div>
+          <a class="profile-row" href="#/settings" id="profile-row">
+            <span class="avatar" id="sidebar-avatar">同</span>
+            <span class="profile-copy">
+              <strong id="sidebar-name">同学</strong>
+              <small id="sidebar-form">中五 · 2027 DSE</small>
+            </span>
+            <span data-icon="chevron-right"></span>
+          </a>
+        </div>
+      </aside>
+
+      <div class="workspace">
+        <header class="topbar">
+          <button class="icon-btn mobile-menu" data-action="toggle-sidebar" aria-label="打开菜单">
+            <span data-icon="menu"></span>
+          </button>
+          <form class="global-search" id="global-search" role="search">
+            <span data-icon="search"></span>
+            <input
+              id="global-search-input"
+              type="search"
+              placeholder="搜索笔记、课题、关键词…"
+              data-i18n-placeholder="搜索笔记、课题、关键词…"
+              autocomplete="off"
+              aria-label="搜索"
+            />
+            <kbd>/</kbd>
+          </form>
+          <div class="topbar-actions">
+            <span class="status-pill" id="ocr-status" title="图片上传时自动识别文字">
+              <span class="status-dot"></span>
+              <span data-i18n="OCR 就绪">OCR 就绪</span>
+            </span>
+            <button class="lang-toggle" data-action="toggle-lang" id="lang-toggle" aria-label="Switch language">
+              <span id="lang-label">EN</span>
+            </button>
+            <button class="icon-btn" data-action="install-app" id="install-btn" aria-label="安装应用" hidden>
+              <span data-icon="download"></span>
+            </button>
+            <a class="topbar-capture" href="#/capture">
+              <span data-icon="wand"></span>
+              <span data-i18n="开始归纳">开始归纳</span>
+            </a>
+            <a class="avatar avatar-sm" href="#/settings" id="topbar-avatar">同</a>
+          </div>
+        </header>
+
+        <main class="view" id="view" tabindex="-1">
+          <div class="boot-screen">
+            <div class="boot-mark">知</div>
+            <div class="skeleton-line w-40"></div>
+            <div class="skeleton-line w-70"></div>
+            <p>正在打开你的学习台…</p>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <nav class="mobile-tabbar" aria-label="移动导航">
+      <a href="#/" data-nav="dashboard"><span data-icon="home"></span><span data-i18n="总览">总览</span></a>
+      <a href="#/notes" data-nav="notes"><span data-icon="notes"></span><span data-i18n="笔记库">笔记</span></a>
+      <a class="tab-capture" href="#/capture" aria-label="整理新笔记"><span data-icon="plus"></span></a>
+      <a href="#/subjects" data-nav="subjects"><span data-icon="subjects"></span><span data-i18n="学科模块">学科</span></a>
+    </nav>
+
+    <div class="support-widget" id="support-widget">
+      <button class="support-fab" id="support-toggle" type="button" aria-expanded="false" aria-controls="support-panel">
+        <span data-icon="chat"></span>
+        <span data-i18n="客服">客服</span>
+      </button>
+      <section class="support-panel" id="support-panel" hidden aria-label="微信客服">
+        <div class="support-head">
+          <div>
+            <span class="eyebrow">WECHAT SUPPORT</span>
+            <h2 data-i18n="微信客服">微信客服</h2>
+          </div>
+          <button class="icon-btn" id="support-close" type="button" aria-label="关闭客服">×</button>
+        </div>
+        <img class="support-qr" src="/icons/wechat-support.jpg" alt="微信客服二维码" loading="lazy" />
+        <p class="support-scan" data-i18n="微信扫码添加，或复制微信号">微信扫码添加，或复制微信号</p>
+        <div class="support-id">
+          <code>Rzcr0112</code>
+          <button class="btn btn-soft btn-sm" id="support-copy" type="button" data-i18n="复制微信号">复制微信号</button>
+        </div>
+        <p class="support-note" data-i18n="本站由学生自行搭建，非学校或考评局官方。在线时间不固定；留言后 24 小时内回复。">本站由学生自行搭建，非学校或考评局官方。在线时间不固定；留言后 24 小时内回复。</p>
+      </section>
+    </div>
+
+    <div id="modal-root"></div>
+    <div id="toast-root" class="toast-root" aria-live="polite"></div>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
