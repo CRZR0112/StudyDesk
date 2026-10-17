@@ -289,7 +289,7 @@ function renderAuth() {
           <div>${icon('lock', 16)}<span>本地 SQLite，账号隔离</span></div>
         </div>
       </div>
-      <div class="auth-brand-foot">香港 DSE · 中三至中六 · v${esc(state.bootstrap?.version || '0.3.3')}</div>
+      <div class="auth-brand-foot">香港 DSE · 中三至中六 · v${esc(state.bootstrap?.version || '0.4.0')}</div>
     </section>
     <section class="auth-panel">
       <div class="auth-panel-inner">
@@ -1831,6 +1831,12 @@ async function renderSettings(seq) {
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn btn-soft" href="/api/export" download>${icon('download', 15)} 导出 JSON 备份</a><button class="btn btn-ghost" data-action="install-app">${icon('download', 15)} 安装到桌面</button></div>
         <p class="tiny muted" style="margin-top:10px">位置：${esc(data.data.dataDir)}</p>
+      </section>
+      <section class="settings-card">
+        <h2>远程访问</h2><p>不在同一个 Wi-Fi 时，用 Tailscale 连回这台电脑；不要把 4173 直接映射到公网。</p>
+        ${state.bootstrap.network?.publicUrl ? `<div class="lan-url"><span>${icon('external', 13)}</span><code>${esc(state.bootstrap.network.publicUrl)}</code><button class="btn btn-sm btn-soft" data-action="copy-lan" data-url="${esc(state.bootstrap.network.publicUrl)}">复制</button></div>` : '<p class="tiny muted">尚未配置远程地址。安装 Tailscale 后运行脚本，并设置 <code class="inline-code">STUDYDESK_PUBLIC_URL</code>。</p>'}
+        <details style="margin-top:10px"><summary class="tiny muted">Tailscale 设置步骤</summary><ol class="tiny muted" style="margin:7px 0 0 18px;line-height:1.9"><li>电脑和手机安装 Tailscale，登录同一个 tailnet。</li><li>电脑运行：<code class="inline-code">tailscale serve --bg 4173</code></li><li>把打印出的 <code class="inline-code">https://&lt;机器名&gt;.ts.net</code> 设为 <code class="inline-code">STUDYDESK_PUBLIC_URL</code>，重启服务。</li><li>手机打开该地址；AI 仍由这台电脑的 Ollama 运行。</li></ol><p class="tiny muted" style="margin-top:8px">也可以直接使用 Tailscale IP：<code class="inline-code">http://100.x.x.x:4173</code>。不要在路由器上做公网端口转发。</p></details>
+        <p class="tiny muted" style="margin-top:10px">远程访问仍需要账号登录；Tailscale 只负责把设备连到同一个私有网络，不绕过知序账号。</p>
       </section>
       <section class="settings-card">
         <h2>局域网访问</h2><p>手机、平板连同一个 Wi-Fi，打开下面的地址即可。电脑需要保持开机，服务器窗口不能关。</p>

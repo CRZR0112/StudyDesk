@@ -350,6 +350,55 @@ data/                      运行时生成，不提交
 
 ---
 
+## 远程访问（推荐 Tailscale）
+
+目标：不在家 Wi-Fi 时，手机/笔记本也能打开自己的 StudyDesk，但**不把 4173 暴露到公网**。
+
+推荐用 [Tailscale](https://tailscale.com/) 组一个私有网络：
+
+1. 电脑与手机安装 Tailscale，登录**同一个 tailnet**
+2. 在 Tailscale 管理后台开启 **HTTPS certificates**
+3. 电脑运行：
+
+```bash
+tailscale serve --bg 4173
+```
+
+4. 查看地址：
+
+```bash
+tailscale status
+```
+
+会得到类似 `https://your-pc.tailnet-name.ts.net` 的地址。
+5. 用这个地址启动 StudyDesk：
+
+```powershell
+$env:STUDYDESK_PUBLIC_URL = "https://your-pc.tailnet-name.ts.net"
+npm start
+```
+
+也可以双击项目根目录的 `打开远程访问.cmd`，它会检查 Tailscale、启动 Serve 并打印地址。
+
+### 配置项
+
+| 变量 | 说明 |
+|---|---|
+| `STUDYDESK_PUBLIC_URL` | 远程 HTTPS 地址，用于显示远程入口与校验 Origin |
+| `STUDYDESK_TRUST_PROXY=1` | 仅在你确认反向代理可信时开启，允许读取 `X-Forwarded-Host` |
+| `STUDYDESK_PIN` | 可选的额外访问密码，建议远程时设置 |
+
+说明：
+
+- 手机也需要安装 Tailscale 并登录同一 tailnet；它不是公开网页
+- 电脑必须开机、服务与 Ollama 必须运行
+- 远程访问仍需登录知序账号，Tailscale 不绕过账号
+- 不要在路由器上把 4173 端口转发到公网
+- 不建议用 Tailscale Funnel 把服务公开到整个互联网
+- 如果使用 Cloudflare Tunnel/Nginx，必须配置 HTTPS 和 `STUDYDESK_PUBLIC_URL`，并确认代理可信
+
+---
+
 ## GitHub Pages 项目主页
 
 已上线：<https://crzr0112.github.io/StudyDesk/>
@@ -419,9 +468,10 @@ npm test
 | v0.3 | 多账号注册登录、数据隔离、选科（含 M1/M2）、中英文界面一键切换 |
 | v0.3.1 | 修复 OCR 乱码标题、示范笔记与个人笔记分离、英文 TOC / 统计单位细节 |
 | v0.3.2 | 关闭题库 / 每日一题 / 答题统计，收窄为纯知识总结与笔记库 |
-| v0.3.3（当前） | DSE 目标年份选择、动态倒数、账号注销、恢复码找回、注册频率限制、英文课题元数据、相关视频 |
-| v0.4 | 间隔重复排程、闪卡复习清单、薄弱课题提示 |
-| v0.5 | 多设备同步、教师共享学科包、协作批注 |
+| v0.3.3 | DSE 目标年份选择、动态倒数、账号注销、恢复码找回、注册频率限制、英文课题元数据、相关视频 |
+| v0.4.0（当前） | Tailscale 远程访问、HTTPS 反向代理适配、Secure Cookie、远程入口设置 |
+| v0.5 | 间隔重复排程、云同步、闪卡复习清单、薄弱课题提示 |
+| v0.6 | 多设备共享、教师共享学科包、协作批注 |
 | v1.0 | Capacitor 打包 iOS / Android；复用同一 API 与 SQLite schema |
 
 「做成 App」的路径已经预留：前端是 PWA（可安装、离线 shell），API 与数据层独立，移动端只需套壳或复用 REST 接口。

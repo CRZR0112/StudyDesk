@@ -7,6 +7,7 @@ import {
   DB_FILE,
   MAX_UPLOAD_BYTES,
   UPLOAD_DIR,
+  PUBLIC_URL,
 } from './config.mjs';
 import {
   buildNoteSearchText,
@@ -37,6 +38,7 @@ import {
   getUserSubjectCodes,
   getUserSubjects,
   hashPassword,
+  isSecureRequest,
   issueRecoveryCode,
   loginKey,
   noteLoginFailure,
@@ -696,7 +698,7 @@ export async function handleApi(req, res, url, db) {
         subjects: getUserSubjects(db, userId),
         recoveryCode,
       },
-      { 'Set-Cookie': sessionCookie(token) },
+      { 'Set-Cookie': sessionCookie(token, isSecureRequest(req)) },
     );
   }
 
@@ -743,7 +745,7 @@ export async function handleApi(req, res, url, db) {
       res,
       200,
       { ok: true, user: publicUser(user), subjects: getUserSubjects(db, found.id) },
-      { 'Set-Cookie': sessionCookie(token) },
+      { 'Set-Cookie': sessionCookie(token, isSecureRequest(req)) },
     );
   }
 
@@ -759,7 +761,7 @@ export async function handleApi(req, res, url, db) {
   }
   if (pathname === '/api/auth/logout' && method === 'POST') {
     deleteSession(db, req);
-    return sendJson(res, 200, { ok: true }, { 'Set-Cookie': clearSessionCookie() });
+    return sendJson(res, 200, { ok: true }, { 'Set-Cookie': clearSessionCookie(isSecureRequest(req)) });
   }
 
   if (!sessionUser) return fail(res, 401, '请先登录。');
@@ -803,7 +805,7 @@ export async function handleApi(req, res, url, db) {
         // 附件可能已被清理。
       }
     }
-    return sendJson(res, 200, { ok: true }, { 'Set-Cookie': clearSessionCookie() });
+    return sendJson(res, 200, { ok: true }, { 'Set-Cookie': clearSessionCookie(isSecureRequest(req)) });
   }
 
   if (pathname === '/api/bootstrap' && method === 'GET') {
@@ -819,7 +821,7 @@ export async function handleApi(req, res, url, db) {
       version: APP_VERSION,
       user: publicUser(sessionUser),
       mySubjects: getUserSubjects(db, userId),
-      network: { port: requestPort, urls: lanUrls, primary: lanUrls[0]?.url || '' },
+      network: { port: requestPort, urls: lanUrls, primary: lanUrls[0]?.url || '', publicUrl: PUBLIC_URL },
       forms: [
         { code: 'S3', label: '中三 S3', group: 'junior' },
         { code: 'S4', label: '中四 S4', group: 'senior' },

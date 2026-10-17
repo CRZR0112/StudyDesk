@@ -210,6 +210,17 @@ npm start
 # http://127.0.0.1:4173
 # 手机：http://&lt;主机局域网 IP&gt;:4173</code></pre>
         </div>
+        <div class="local-run">
+          <div>
+            <span class="eyebrow">REMOTE ACCESS</span>
+            <h3>不在家，也能连回自己的知识库。</h3>
+            <p>推荐 Tailscale：电脑和手机登录同一个 tailnet，用私有 HTTPS 地址访问。不要把 4173 端口转发到公网；远程访问仍需要登录知序账号。</p>
+          </div>
+          <pre><code>tailscale serve --bg 4173
+
+$env:STUDYDESK_PUBLIC_URL="https://&lt;机器名&gt;.ts.net"
+npm start</code></pre>
+        </div>
       </div>
     </section>
 
@@ -221,7 +232,7 @@ npm start
         <div class="faq">
           <details open><summary>这是免费的吗？</summary><p>当前本地内测免费。未来可能在云同步、英文额度或学校版上做付费方案；具体以届时的价格页为准，不会自动扣费。</p></details>
           <details><summary>它会把我的笔记上传吗？</summary><p>默认不会。笔记与附件保存在本机 SQLite；AI 默认调用本机 Ollama。若你主动配置云端 API，材料才会发送到对应服务商。</p></details>
-          <details><summary>手机可以用吗？</summary><p>可以。电脑和手机连同一个 Wi-Fi，打开主机打印的局域网地址即可。AI 仍由主机上的 Ollama 运行，手机不需要安装模型。</p></details>
+          <details><summary>手机可以用吗？</summary><p>可以。电脑和手机连同一个 Wi-Fi，打开主机打印的局域网地址即可。不在家时，用 Tailscale 连回同一 tailnet；AI 仍由主机上的 Ollama 运行，手机不需要安装模型。</p></details>
           <details><summary>为什么中国语文和 CSD 不是英文？</summary><p>这两科按中文学习与作答更自然，因此保留中文知识稿；其他科目默认英文化，减少英文授课学生的转换成本。</p></details>
           <details><summary>有题库或每日一题吗？</summary><p>没有。题库、每日一题和答题统计已关闭。学校已有足够题目，知序专注笔记整理与复习结构。</p></details>
           <details><summary>是学校或考评局官方项目吗？</summary><p>不是。知序由学生自行搭建，与学校、香港考试及评核局（HKEAA）无隶属关系。DSE 为香港考试及评核局举办之考试。</p></details>

@@ -366,6 +366,11 @@ export const ENGLISH = {
   '导出 JSON 备份': 'Export JSON backup',
   '安装到桌面': 'Install app',
   '位置': 'Location',
+  '远程访问': 'Remote access',
+  '不在同一个 Wi-Fi 时，用 Tailscale 连回这台电脑；不要把 4173 直接映射到公网。': 'When you are away from home, use Tailscale to reach this computer. Do not expose port 4173 directly to the public internet.',
+  '尚未配置远程地址。安装 Tailscale 后运行脚本，并设置': 'No remote URL configured yet. Install Tailscale, run the setup script, and set',
+  'Tailscale 设置步骤': 'Tailscale setup steps',
+  '远程访问仍需要账号登录；Tailscale 只负责把设备连到同一个私有网络，不绕过知序账号。': 'Remote access still requires an account login. Tailscale only joins devices to a private network; it does not bypass the StudyDesk account.',
   '局域网访问': 'LAN access',
   '手机、平板连同一个 Wi-Fi，打开下面的地址即可。电脑需要保持开机，服务器窗口不能关。':
     'On the same Wi-Fi, open the address below on your phone or tablet. Keep the computer and server running.',

@@ -3,12 +3,19 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { pathToFileURL } from 'node:url';
-import { HOST, PORT, PUBLIC_DIR, APP_VERSION, DATA_DIR, ACCESS_PIN } from './config.mjs';
+import { HOST, PORT, PUBLIC_DIR, APP_VERSION, DATA_DIR, ACCESS_PIN, PUBLIC_URL, TRUST_PROXY } from './config.mjs';
 import { openDatabase } from './db.mjs';
 import { handleApi, MIME } from './api.mjs';
 import { getLanUrls } from './network.mjs';
 
 const AUTH_HASH = ACCESS_PIN ? crypto.createHash('sha256').update(ACCESS_PIN).digest() : null;
+const PUBLIC_ORIGIN = (() => {
+  try {
+    return PUBLIC_URL ? new URL(PUBLIC_URL).origin : '';
+  } catch {
+    return '';
+  }
+})();
 
 function authorized(req) {
   if (!AUTH_HASH) return true;
@@ -43,7 +50,13 @@ function originAllowed(req) {
     const parsed = new URL(origin);
     const host = req.headers.host || '';
     if (parsed.host === host) return true;
-    return parsed.hostname === '127.0.0.1' || parsed.hostname === 'localhost';
+    if (parsed.hostname === '127.0.0.1' || parsed.hostname === 'localhost') return true;
+    if (PUBLIC_ORIGIN && parsed.origin === PUBLIC_ORIGIN) return true;
+    if (TRUST_PROXY) {
+      const forwardedHost = String(req.headers['x-forwarded-host'] || '').split(',')[0].trim();
+      if (forwardedHost && parsed.host === forwardedHost) return true;
+    }
+    return false;
   } catch {
     return false;
   }
@@ -164,8 +177,9 @@ export function startServer({ port = PORT, host = HOST } = {}) {
     } else {
       console.log(`  ➜  监听: http://${host}:${actualPort}`);
     }
-    if (ACCESS_PIN) console.log('  🔒 已启用访问密码（STUDYDESK_PIN）');
-    console.log(`  ➜  data: ${DATA_DIR}\n`);
+      if (ACCESS_PIN) console.log('  🔒 已启用访问密码（STUDYDESK_PIN）');
+      if (PUBLIC_URL) console.log(`  ➜  远程: ${PUBLIC_URL}`);
+      console.log(`  ➜  data: ${DATA_DIR}\n`);
   });
   const shutdown = () => {
     console.log('\n[server] shutting down...');
