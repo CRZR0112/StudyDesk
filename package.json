@@ -3,7 +3,7 @@
   "version": "0.4.0",
   "private": true,
   "type": "module",
-  "description": "知序 StudyDesk — 面向香港 DSE 中三至中六的笔记整理与真题练习平台",
+  "description": "知序 StudyDesk — 面向香港 DSE 中三至中六的笔记整理与知识库平台",
   "scripts": {
     "start": "node server/index.mjs",
     "dev": "node --watch server/index.mjs",

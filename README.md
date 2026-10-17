@@ -5,7 +5,7 @@
 - 项目主页：<https://crzr0112.github.io/StudyDesk/>
 - GitHub 仓库：<https://github.com/CRZR0112/StudyDesk>
 
-- 本地优先：账号、笔记与附件保存在本机 SQLite，不上传第三方
+- 可本地开发，也可 Docker + Caddy 公网部署；SQLite 与附件持久化到数据目录
 - 多账号：注册 / 登录 / 退出，密码 scrypt 哈希 + HttpOnly 会话；每个账号的笔记与动态独立
 - 选科：注册第二步先选科；S4–S6 核心科 + 2–5 门选修，**M1 / M2 明确在选修列表中**
 - 三种输入：粘贴文字、上传文件（PDF / DOCX / PPTX / XLSX）、图片 OCR
@@ -14,7 +14,7 @@
 - 英文知识稿：非中文 / CSD 科目自动用本机 Ollama 转成英文；中文、CSD 保留中文
 - 中英双语界面：右上角一键切换；界面与知识稿都英文，原始材料保留原文
 - 可选 AI：兼容 OpenAI Chat Completions / 本地 Ollama；失败时回退本地引擎
-- 客服入口：右下角微信客服，显示二维码、微信号 `Rzcr0112`，并说明学生自建、在线时间不固定、24 小时内回复
+- 客服入口：右下角微信客服，显示二维码、微信号 `Rzcr0112`，并说明在线时间不固定、24 小时内回复
 - PWA：可安装到桌面，为后续 Capacitor 打包 App 留好路径
 
 ![总览](docs/screenshot-dashboard.png)
@@ -97,7 +97,7 @@ New-NetFirewallRule -DisplayName "知序 StudyDesk LAN" -Direction Inbound -Prot
 
 脚本只开放 TCP 4173，不改动其他规则。家里 Wi-Fi 被 Windows 标记为「公用网络」时，仍需要这条规则；不要为了省事把整个网络防火墙关掉。
 
-> 安全提醒：当前是家庭局域网单用户版。`STUDYDESK_PIN` 只是轻量访问密码，HTTP 在局域网内也不是加密传输；不要在咖啡店 Wi-Fi 或公网直接暴露。需要外网访问时，优先用 Tailscale / Cloudflare Tunnel，并加 HTTPS。
+> 安全提醒：公网部署必须使用 HTTPS（Caddy/Nginx/Cloudflare Tunnel），并建议设置 `STUDYDESK_PIN`。不要直接把 4173 明文暴露到公网；SQLite 与附件要定期备份。
 >
 > 局域网 HTTP 下浏览器不把页面视为安全上下文，因此 PWA「安装到桌面」和剪贴板 API 可能不可用；页面与上传功能仍正常。
 
@@ -221,7 +221,6 @@ New-NetFirewallRule -DisplayName "知序 StudyDesk LAN" -Direction Inbound -Prot
 - 产品定位收窄为「知识总结 + 笔记库」，不替代学校题库与 Past Papers
 
 > **版权说明**：笔记内容由用户材料整理或由系统生成，不复制考评局官方试题；需要历年题、评卷参考与课程文件时，请使用 [HKEAA](https://www.hkeaa.edu.hk/) 或学校提供的授权资料。
-
 ### 5. 本地 Ollama / 可选 AI
 
 当前已接入本机 Ollama：
@@ -312,7 +311,7 @@ data/                      运行时生成，不提交
 - **稳定 code**：学科 / 课题 code 作为外部引用，数据库自增 id 仅内部使用
 - **可追溯**：`sources.text_content` 保存提取后的原文，支持重新归纳
 - **迁移而非重建**：`server/db.mjs` 的 `MIGRATIONS` 按版本执行；新增字段请追加迁移
-- **本地优先**：SQLite 单文件，方便备份、迁移和未来嵌入 App
+- **SQLite 单文件**：方便备份、迁移和容器持久化
 
 ### API 摘要
 
@@ -466,7 +465,7 @@ npm test
 | v0.3.1 | 修复 OCR 乱码标题、示范笔记与个人笔记分离、英文 TOC / 统计单位细节 |
 | v0.3.2 | 关闭题库 / 每日一题 / 答题统计，收窄为纯知识总结与笔记库 |
 | v0.3.3 | DSE 目标年份选择、动态倒数、账号注销、恢复码找回、注册频率限制、英文课题元数据、相关视频 |
-| v0.4.0（当前） | Tailscale 远程访问、HTTPS 反向代理适配、Secure Cookie、远程入口设置 |
+| v0.4.0（当前） | 公网 Docker/Caddy 部署、HTTPS 反向代理适配、Secure Cookie、远程入口设置 |
 | v0.5 | 间隔重复排程、云同步、闪卡复习清单、薄弱课题提示 |
 | v0.6 | 多设备共享、教师共享学科包、协作批注 |
 | v1.0 | Capacitor 打包 iOS / Android；复用同一 API 与 SQLite schema |
@@ -477,4 +476,4 @@ npm test
 
 ## 免责声明
 
-本项目用于个人学习与笔记整理。DSE 为香港考试及评核局举办之考试；题目为按考纲重写的改编练习，不声称是考评局官方试题。历年试题、评卷参考与课程文件请以 [HKEAA](https://www.hkeaa.edu.hk/) 与 [EDB](https://www.edb.gov.hk/) 官方发布为准。
+本项目用于个人学习与笔记整理。DSE 为香港考试及评核局举办之考试。历年试题、评卷参考与课程文件请以 [HKEAA](https://www.hkeaa.edu.hk/) 与 [EDB](https://www.edb.gov.hk/) 官方发布为准。
