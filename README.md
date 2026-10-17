@@ -2,6 +2,9 @@
 
 面向香港 **DSE 中三至中六（S3–S6）** 的笔记整理与知识库平台。把课堂笔记、讲义文件或课本图片交给它，自动整理成可温习的结构化笔记。
 
+- 项目主页：<https://crzr0112.github.io/StudyDesk/>
+- GitHub 仓库：<https://github.com/CRZR0112/StudyDesk>
+
 - 本地优先：账号、笔记与附件保存在本机 SQLite，不上传第三方
 - 多账号：注册 / 登录 / 退出，密码 scrypt 哈希 + HttpOnly 会话；每个账号的笔记与动态独立
 - 选科：注册第二步先选科；S4–S6 核心科 + 2–5 门选修，**M1 / M2 明确在选修列表中**
@@ -349,7 +352,9 @@ data/                      运行时生成，不提交
 
 ## GitHub Pages 项目主页
 
-`docs/` 下是一个可以直接托管的静态项目介绍页：
+已上线：<https://crzr0112.github.io/StudyDesk/>
+
+当前 Pages 配置：`main` 分支 / `/docs` 目录。`docs/` 下是可直接托管的静态项目介绍页：
 
 - `docs/index.html`：产品介绍、功能、截图、隐私说明、FAQ、微信客服
 - `docs/styles.css`：页面样式，无外部字体/CDN 依赖

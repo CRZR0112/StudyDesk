@@ -579,6 +579,8 @@ figcaption { color: var(--muted); font-size: 10px; }
 .footer-brand .brand-copy small { color: rgba(246, 240, 226, 0.4); }
 .site-footer p { margin: 0; font-size: 9.5px; line-height: 1.8; }
 .copyright { text-align: right; color: rgba(246, 240, 226, 0.35); }
+.copyright a { color: rgba(246, 240, 226, 0.62); text-decoration: underline; text-underline-offset: 3px; }
+.copyright a:hover { color: var(--gold-2); }
 
 @media (max-width: 940px) {
   .nav-links { gap: 14px; }
