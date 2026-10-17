@@ -350,52 +350,49 @@ data/                      运行时生成，不提交
 
 ---
 
-## 远程访问（推荐 Tailscale）
+## 公网服务器部署
 
-目标：不在家 Wi-Fi 时，手机/笔记本也能打开自己的 StudyDesk，但**不把 4173 暴露到公网**。
+这是一个**服务端应用**：用户打开网址、注册/登录即可使用，不需要每人安装 Node 或配置本地环境。
 
-推荐用 [Tailscale](https://tailscale.com/) 组一个私有网络：
-
-1. 电脑与手机安装 Tailscale，登录**同一个 tailnet**
-2. 在 Tailscale 管理后台开启 **HTTPS certificates**
-3. 电脑运行：
+推荐 Docker + Caddy：
 
 ```bash
-tailscale serve --bg 4173
+cp deploy/.env.example .env
+# 编辑 .env：DOMAIN、STUDYDESK_PUBLIC_URL
+docker compose up -d --build
 ```
 
-4. 查看地址：
+Caddy 会自动为域名申请 HTTPS 证书，并把请求反代到应用。
 
-```bash
-tailscale status
-```
+### 需要准备
 
-会得到类似 `https://your-pc.tailnet-name.ts.net` 的地址。
-5. 用这个地址启动 StudyDesk：
-
-```powershell
-$env:STUDYDESK_PUBLIC_URL = "https://your-pc.tailnet-name.ts.net"
-npm start
-```
-
-也可以双击项目根目录的 `打开远程访问.cmd`，它会检查 Tailscale、启动 Serve 并打印地址。
+- 一台有公网 IP 的 Linux 服务器（2 GB 内存起）
+- 域名 A/AAAA 记录指向服务器
+- Docker + Docker Compose
+- 开放 80 / 443
 
 ### 配置项
 
 | 变量 | 说明 |
 |---|---|
-| `STUDYDESK_PUBLIC_URL` | 远程 HTTPS 地址，用于显示远程入口与校验 Origin |
-| `STUDYDESK_TRUST_PROXY=1` | 仅在你确认反向代理可信时开启，允许读取 `X-Forwarded-Host` |
-| `STUDYDESK_PIN` | 可选的额外访问密码，建议远程时设置 |
+| `STUDYDESK_PUBLIC_URL` | 公网 HTTPS 地址，例如 `https://study.example.com` |
+| `STUDYDESK_TRUST_PROXY=1` | Docker/Caddy 反代时开启，允许读取 `X-Forwarded-Host` |
+| `STUDYDESK_PIN` | 可选的额外入口密码；公开服务建议设置 |
+| `STUDYDESK_DATA_DIR` | SQLite 与附件目录；Docker 中固定为 `/app/data` |
 
-说明：
+### 数据
 
-- 手机也需要安装 Tailscale 并登录同一 tailnet；它不是公开网页
-- 电脑必须开机、服务与 Ollama 必须运行
-- 远程访问仍需登录知序账号，Tailscale 不绕过账号
-- 不要在路由器上把 4173 端口转发到公网
-- 不建议用 Tailscale Funnel 把服务公开到整个互联网
-- 如果使用 Cloudflare Tunnel/Nginx，必须配置 HTTPS 和 `STUDYDESK_PUBLIC_URL`，并确认代理可信
+- 笔记、账号、附件都在 Docker volume `studydesk-data`
+- 部署前请确认备份策略；不要只依赖容器内文件
+- `.env`、`data/`、`internal/` 不应提交到 Git
+
+### AI
+
+- 应用通过设置页配置 OpenAI 兼容接口
+- 本机 Ollama 只适合小规模；公开服务建议专用模型服务或限流
+- 容器访问宿主机 Ollama 时，Windows/Mac 通常用 `http://host.docker.internal:11434/v1`
+
+详见 [deploy/README.md](deploy/README.md)。
 
 ---
 

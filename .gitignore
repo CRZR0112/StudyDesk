@@ -15,5 +15,11 @@ tmp/
 .DS_Store
 Thumbs.db
 
+# local runtime / secrets
+.env
+.env.*
+!.env.example
+tools/
+
 # internal planning (not part of the public Pages site)
 internal/

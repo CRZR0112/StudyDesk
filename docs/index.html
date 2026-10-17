@@ -4,11 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>知序 StudyDesk · DSE 笔记整理与知识库</title>
-  <meta name="description" content="知序 StudyDesk 是面向香港 DSE 中三至中六的本地优先笔记整理工具：把图片、讲义和文字整理成结构化笔记、重点、公式与自测闪卡。非学校或考评局官方项目。" />
+  <meta name="description" content="知序 StudyDesk 是面向香港 DSE 中三至中六的在线笔记整理工具：把图片、讲义和文字整理成结构化笔记、重点、公式与自测闪卡。" />
   <meta name="theme-color" content="#0b352e" />
   <link rel="canonical" href="https://crzr0112.github.io/StudyDesk/" />
   <meta property="og:title" content="知序 StudyDesk · DSE 笔记整理" />
-  <meta property="og:description" content="把散落的课堂材料，整理成一份能复习的知识库。本地优先，非官方项目。" />
+  <meta property="og:description" content="把散落的课堂材料，整理成一份能复习的知识库。" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://crzr0112.github.io/StudyDesk/" />
   <meta property="og:image" content="https://crzr0112.github.io/StudyDesk/assets/og.jpg" />
@@ -29,9 +29,8 @@
       <nav class="nav-links" aria-label="页面导航">
         <a href="#features">功能</a>
         <a href="#screens">预览</a>
-        <a href="#english">英文</a>
-        <a href="#privacy">隐私</a>
-        <a href="#faq">常见问题</a>
+        <a href="#privacy">数据</a>
+        <a href="#support">联系</a>
       </nav>
       <a class="nav-cta" href="#support">微信联系</a>
     </div>
@@ -41,14 +40,14 @@
     <section class="hero" id="top">
       <div class="wrap hero-grid">
         <div class="hero-copy">
-          <div class="eyebrow"><span class="dot"></span> DSE · S3–S6 · LOCAL FIRST</div>
+          <div class="eyebrow"><span class="dot"></span> DSE · S3–S6 · ONLINE</div>
           <h1>把今天散落的笔记，<br /><em>整理成明天能复习的知识库。</em></h1>
           <p class="lede">拍下课本、上传讲义 PDF，或粘贴一段课堂笔记。知序会把它拆成概念、重点、公式、易错点与自测闪卡，按你的选科整理好。</p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#screens">看看它能做什么 <span aria-hidden="true">→</span></a>
             <a class="btn btn-ghost" href="#support">微信联系</a>
           </div>
-          <p class="hero-note">学生自建项目 · 非学校或香港考评局官方 · 当前为本地内测</p>
+          <p class="hero-note">在线使用 · 账号登录 · 笔记按账号隔离</p>
         </div>
         <figure class="hero-shot">
           <img src="assets/dashboard.jpg" alt="知序 StudyDesk 总览界面：笔记数、学科覆盖、今日复习和最近笔记" width="1200" height="917" />
@@ -59,7 +58,7 @@
         <div><strong>16</strong><span>学科模块</span></div>
         <div><strong>174</strong><span>DSE 课题</span></div>
         <div><strong>3</strong><span>种输入方式</span></div>
-        <div><strong>0</strong><span>默认第三方上传</span></div>
+        <div><strong>✓</strong><span>账号隔离</span></div>
       </div>
     </section>
 
@@ -102,11 +101,11 @@
         <div class="cards two feature-list">
           <article class="feature">
             <span class="feature-icon" aria-hidden="true">◎</span>
-            <div><h3>本地优先</h3><p>账号、笔记和附件保存在本机 SQLite；默认不上传第三方。</p></div>
+            <div><h3>账号隔离</h3><p>每个账号独立保存笔记、附件与选科；登录后进入自己的知识库。</p></div>
           </article>
           <article class="feature">
             <span class="feature-icon" aria-hidden="true">A</span>
-            <div><h3>英文知识稿</h3><p>非中文 / CSD 科目用本机 Ollama 转成英文；中文与 CSD 保留中文。</p></div>
+            <div><h3>按选科整理</h3><p>核心科 + 选修科，含 M1 / M2；课题按 S3–S6 组织。</p></div>
           </article>
           <article class="feature">
             <span class="feature-icon" aria-hidden="true">⌘</span>
@@ -135,37 +134,13 @@
             <div class="eyebrow">SCREENS</div>
             <h2>先看界面，再决定要不要用。</h2>
           </div>
-          <p>截图来自实际运行的本地版本，不是概念稿。</p>
+          <p>截图来自实际运行版本，不是概念稿。</p>
         </div>
-        <div class="shots">
-          <figure class="shot wide">
+        <div class="shots single">
+          <figure class="shot">
             <img src="assets/dashboard.jpg" alt="总览界面" width="1200" height="917" />
             <figcaption><strong>总览</strong><span>笔记、学科覆盖、平均完整度和今日复习，一眼看到自己的知识库。</span></figcaption>
           </figure>
-          <figure class="shot">
-            <img src="assets/topics.jpg" alt="物理学科页，英文课题列表" width="1000" height="833" />
-            <figcaption><strong>学科与课题</strong><span>物理、化学、数学等非中文科目的课题名、单元名与学科简介为英文。</span></figcaption>
-          </figure>
-          <figure class="shot">
-            <img src="assets/support.jpg" alt="微信客服面板" width="800" height="556" />
-            <figcaption><strong>微信客服</strong><span>右下角随时打开，显示二维码、微信号和使用说明。</span></figcaption>
-          </figure>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="english">
-      <div class="wrap english-grid">
-        <div>
-          <div class="eyebrow">LANGUAGE POLICY</div>
-          <h2>知识稿英文，<br /><em>中文与 CSD 除外。</em></h2>
-          <p class="body-copy">非中文 / CSD 科目的笔记知识稿会在保存时用本机 Ollama 转成英文。课题名、单元名和学科简介也已英文化；中国语文与公民与社会发展保留中文。</p>
-          <p class="small-note">英文为机器翻译，专有名词、公式和语义仍建议对照原图或原文校对。当前使用 <code>qwen2.5:1.5b</code>，速度约 5–10 秒/篇；更大的模型质量更好但更慢。</p>
-        </div>
-        <div class="policy-card">
-          <div class="policy-row"><span class="badge-en">EN</span><div><strong>非中文 / CSD 科目</strong><span>Biology · Chemistry · Physics · Mathematics · Economics · Geography · History · ICT · BAFS · M1 / M2</span></div></div>
-          <div class="policy-row"><span class="badge-zh">中</span><div><strong>中国语文 · 公民与社会发展</strong><span>保留中文知识稿，不做强制英文化</span></div></div>
-          <div class="policy-row"><span class="badge-muted">原</span><div><strong>原始材料与题目</strong><span>保留原文；需要时自行对照和润色</span></div></div>
         </div>
       </div>
     </section>
@@ -173,16 +148,16 @@
     <section class="section section-dark" id="privacy">
       <div class="wrap privacy-grid">
         <div>
-          <div class="eyebrow">PRIVACY BY DEFAULT</div>
-          <h2>你的笔记，<br /><em>默认留在你的电脑。</em></h2>
-          <p>知序是本地优先项目：账号、笔记、附件和选科都存在本机 SQLite。AI 英文化默认调用本机 Ollama，材料不需要先上传到第三方。</p>
-          <p class="small-note">如果以后在设置中改用云端 OpenAI 兼容接口，材料会发送到你选择的服务商；请在配置前确认其隐私条款。</p>
+          <div class="eyebrow">DATA &amp; PRIVACY</div>
+          <h2>你的笔记，<br /><em>按账号隔离。</em></h2>
+          <p>账号、笔记、附件和选科保存在服务端数据库。登录后只能读取自己的笔记；支持导出与注销删除。</p>
+          <p class="small-note">如果使用第三方 AI 接口处理材料，请先确认对应服务商的隐私条款。知序不会把你的笔记用于训练。</p>
         </div>
         <div class="privacy-list">
-          <div><span>01</span><p><strong>本地 SQLite</strong><br />笔记、账号、附件、设置都在本机。</p></div>
-          <div><span>02</span><p><strong>本地 Ollama</strong><br />AI 默认只消耗主机算力，不产生 API 账单。</p></div>
-          <div><span>03</span><p><strong>账号隔离</strong><br />每个账号的笔记与设置独立保存。</p></div>
-          <div><span>04</span><p><strong>可迁移</strong><br />支持 JSON 备份；以后可打包成 App。</p></div>
+          <div><span>01</span><p><strong>账号隔离</strong><br />每个账号的笔记、附件与设置独立保存。</p></div>
+          <div><span>02</span><p><strong>登录访问</strong><br />未登录无法读取笔记；会话 Cookie 为 HttpOnly。</p></div>
+          <div><span>03</span><p><strong>可导出</strong><br />支持 JSON 备份与 Markdown 导出。</p></div>
+          <div><span>04</span><p><strong>可删除</strong><br />注销账号会删除自己的笔记与附件。</p></div>
         </div>
       </div>
     </section>
@@ -200,42 +175,11 @@
         </ol>
         <div class="local-run">
           <div>
-            <span class="eyebrow">RUN LOCALLY</span>
-            <h3>这是本地项目，不是托管网页。</h3>
-            <p>GitHub Pages 只是项目介绍页。实际使用需要在自己的电脑上运行；手机通过同一 Wi-Fi 访问主机地址。</p>
+            <span class="eyebrow">ONLINE</span>
+            <h3>打开网页，登录，开始整理。</h3>
+            <p>电脑和手机都可以使用。上传图片、讲义或粘贴文字，知序会整理成自己的知识库；不需要安装客户端。</p>
           </div>
-          <pre><code>npm install
-npm start
-
-# http://127.0.0.1:4173
-# 手机：http://&lt;主机局域网 IP&gt;:4173</code></pre>
-        </div>
-        <div class="local-run">
-          <div>
-            <span class="eyebrow">REMOTE ACCESS</span>
-            <h3>不在家，也能连回自己的知识库。</h3>
-            <p>推荐 Tailscale：电脑和手机登录同一个 tailnet，用私有 HTTPS 地址访问。不要把 4173 端口转发到公网；远程访问仍需要登录知序账号。</p>
-          </div>
-          <pre><code>tailscale serve --bg 4173
-
-$env:STUDYDESK_PUBLIC_URL="https://&lt;机器名&gt;.ts.net"
-npm start</code></pre>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section-tint" id="faq">
-      <div class="wrap faq-wrap">
-        <div class="section-head">
-          <div><div class="eyebrow">FAQ</div><h2>你可能想先问的。</h2></div>
-        </div>
-        <div class="faq">
-          <details open><summary>这是免费的吗？</summary><p>当前本地内测免费。未来可能在云同步、英文额度或学校版上做付费方案；具体以届时的价格页为准，不会自动扣费。</p></details>
-          <details><summary>它会把我的笔记上传吗？</summary><p>默认不会。笔记与附件保存在本机 SQLite；AI 默认调用本机 Ollama。若你主动配置云端 API，材料才会发送到对应服务商。</p></details>
-          <details><summary>手机可以用吗？</summary><p>可以。电脑和手机连同一个 Wi-Fi，打开主机打印的局域网地址即可。不在家时，用 Tailscale 连回同一 tailnet；AI 仍由主机上的 Ollama 运行，手机不需要安装模型。</p></details>
-          <details><summary>为什么中国语文和 CSD 不是英文？</summary><p>这两科按中文学习与作答更自然，因此保留中文知识稿；其他科目默认英文化，减少英文授课学生的转换成本。</p></details>
-          <details><summary>有题库或每日一题吗？</summary><p>没有。题库、每日一题和答题统计已关闭。学校已有足够题目，知序专注笔记整理与复习结构。</p></details>
-          <details><summary>是学校或考评局官方项目吗？</summary><p>不是。知序由学生自行搭建，与学校、香港考试及评核局（HKEAA）无隶属关系。DSE 为香港考试及评核局举办之考试。</p></details>
+          <a class="btn btn-primary" href="#support">获取访问方式 <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </section>
@@ -250,7 +194,7 @@ npm start</code></pre>
             <code>Rzcr0112</code>
             <button type="button" id="copy-wechat" data-copy="Rzcr0112">复制微信号</button>
           </div>
-          <p class="support-note">本站由学生自行搭建，非学校或考评局官方。在线时间不固定；留言后 24 小时内回复。</p>
+          <p class="support-note">在线时间不固定；留言后 24 小时内回复。</p>
         </div>
         <a class="qr-card" href="assets/wechat-qr.jpg" target="_blank" rel="noopener" aria-label="打开微信客服二维码大图">
           <img src="assets/wechat-qr.jpg" alt="知序 StudyDesk 微信客服二维码" width="624" height="636" />
@@ -266,8 +210,8 @@ npm start</code></pre>
         <span class="brand-mark">知</span>
         <span class="brand-copy"><strong>知序 StudyDesk</strong><small>DSE NOTES, ORGANIZED.</small></span>
       </div>
-      <p>面向香港 DSE 中三至中六的本地优先笔记整理工具。学生自建项目，非学校或考评局官方。</p>
-      <p class="copyright">© <span id="year">2026</span> 知序 StudyDesk · DSE 为香港考试及评核局举办之考试。<br /><a href="https://github.com/CRZR0112/StudyDesk" target="_blank" rel="noopener">GitHub 仓库</a> · <a href="#top">回到顶部</a></p>
+      <p>面向香港 DSE 中三至中六的在线笔记整理工具。</p>
+      <p class="copyright">© <span id="year">2026</span> 知序 StudyDesk<br /><a href="https://github.com/CRZR0112/StudyDesk" target="_blank" rel="noopener">GitHub 仓库</a> · <a href="#top">回到顶部</a></p>
     </div>
   </footer>
 

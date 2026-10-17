@@ -374,6 +374,11 @@ figcaption { color: var(--muted); font-size: 10px; }
   gap: 16px;
 }
 
+.shots.single {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 820px;
+}
+
 .shot {
   margin: 0;
   padding: 12px;

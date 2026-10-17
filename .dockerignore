@@ -1,0 +1,13 @@
+node_modules/
+data/
+internal/
+tmp/
+tools/
+docs/
+test/
+.git/
+.gitignore
+*.log
+.env
+.env.*
+!.env.example
