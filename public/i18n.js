@@ -141,7 +141,7 @@ export const ENGLISH = {
   '微信扫码添加，或复制微信号': 'Scan the WeChat QR code, or copy the WeChat ID.',
   '复制微信号': 'Copy WeChat ID',
   '微信号已复制，去微信添加。': 'WeChat ID copied. Open WeChat to add it.',
-  '本站由学生自行搭建，非学校或考评局官方。在线时间不固定；留言后 24 小时内回复。': 'This site is built by a student, not an official school or HKEAA service. Online hours vary; messages are usually answered within 24 hours.',
+  '在线时间不固定；留言后 24 小时内回复。': 'Online hours vary; messages are usually answered within 24 hours.',
   '检测到本地模型端点；无需 API Key，费用为 0（只消耗本机算力）。局域网内其他设备通过本服务器调用这台电脑的 Ollama，手机无需安装模型；主机休眠或 Ollama 关闭时不可用。': 'Local model endpoint detected: no API key and no API fee, only this computer’s compute. Other devices on the LAN use this host through the server; the phone does not need the model. It is unavailable when the host sleeps or Ollama stops.',
   '按这个课题搜索讲解视频，结果会在新标签打开。': 'Search explainer videos for this topic; results open in a new tab.',
   'YouTube 搜索': 'YouTube search',
