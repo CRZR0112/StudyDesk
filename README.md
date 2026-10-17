@@ -416,7 +416,7 @@ Caddy 会自动为域名申请 HTTPS 证书，并把请求反代到应用。
 
 如果不用命令行：安装 GitHub Desktop → Add local repository → Publish repository，然后在 GitHub 网页做第 2–4 步。`data/`、`internal/`、`tmp/` 已在 `.gitignore` 中，不会上传。
 
-> GitHub Pages 只放介绍页，不运行 Node/SQLite/Ollama；实际使用仍在自己的电脑上运行。`internal/business-plan.md` 是内部商业规划，不放在公开页面。
+> GitHub Pages 只放介绍页，不运行 Node/SQLite/Ollama；实际应用运行在 Docker/Caddy 服务器上。`internal/business-plan.md` 是内部商业规划，不放在公开页面。
 
 ---
 
