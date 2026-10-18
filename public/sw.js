@@ -1,7 +1,7 @@
 /* 知序 StudyDesk — offline shell.
    API responses always go to the network; app shell files use network-first
    so a local update never leaves the user on a stale build. */
-const CACHE = 'zhixu-shell-v8';
+const CACHE = 'zhixu-shell-v9';
 const SHELL = ['/', '/index.html', '/styles.css', '/app.js', '/i18n.js', '/manifest.webmanifest', '/icons/icon-192.png', '/icons/icon-512.png', '/icons/wechat-support.jpg'];
 
 self.addEventListener('install', (event) => {

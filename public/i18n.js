@@ -1,11 +1,11 @@
 // 轻量 i18n：中文模板 + 英文词典 + DOM 文本翻译。
 // 只翻译界面，不翻译笔记正文、题目、选项、科目名等内容。
 const STORAGE_KEY = 'zhixu.lang';
-let current = 'zh';
+let current = 'en';
 try {
-  current = localStorage.getItem(STORAGE_KEY) === 'en' ? 'en' : 'zh';
+  localStorage.setItem(STORAGE_KEY, 'en');
 } catch {
-  current = 'zh';
+  current = 'en';
 }
 
 export const ENGLISH = {
@@ -403,6 +403,80 @@ export const ENGLISH = {
   '重新加载': 'Reload',
 };
 
+Object.assign(ENGLISH, {
+  '整理笔记、建立自己的知识库，按选科组织每一份复习材料。每个账号的笔记与设置独立保存。':
+    'Organize notes, build your own knowledge base, and keep every revision pack by subject. Notes and settings are isolated per account.',
+  '粘贴一段笔记、上传讲义 PDF，或直接拍下课本——知序会替你拆成概念、重点、公式、易错点与自测闪卡，整理成一份可以直接温习的结构。':
+    'Paste notes, upload a PDF handout, or photograph a textbook page. Zhixu turns it into concepts, key points, formulas, common mistakes and flashcards you can revise from.',
+  '个已覆盖学科': 'subjects covered',
+  '全部学科 →': 'All subjects →',
+  '按你的选科建立': 'Built from your subjects',
+  '概念、重点、闪卡的覆盖程度': 'Coverage of concepts, key points and flashcards',
+  '把输入变成复习材料': 'Turn input into revision material',
+  'STUDY FOCUS · 今日复习': 'STUDY FOCUS · TODAY',
+  '笔记标题（可选）': 'Note title (optional)',
+  '把原始材料交给知序：先提取文字，再拆成概念、重点、公式、易错点与自测闪卡，整理成一份可复习的笔记。':
+    'Give Zhixu your source material. It extracts the text, then builds concepts, key points, formulas, common mistakes and flashcards into a revision-ready note.',
+  '你的笔记与该 SQLite 数据库都保存在本机。这里可以配置 AI、导出数据，以及查看后续迭代方向。':
+    'Your notes and this SQLite database live on the server. Configure AI, export your data, and review the roadmap here.',
+  '账号与笔记只保存在这台电脑的 SQLite 数据库里。':
+    'Accounts and notes are stored in the server SQLite database.',
+  '切换界面语言；非中文 / CSD 科目的知识稿为英文，中文与 CSD 保留中文。':
+    'Switch the interface language; notes stay in their original language.',
+  '兼容 OpenAI Chat Completions 的接口；本机 Ollama 可留空 API Key。非中文 / CSD 科目的知识稿会用它自动转成英文。':
+    'An OpenAI Chat Completions-compatible endpoint. A local Ollama server can use an empty API key. It is used to polish and translate notes.',
+  '启用 AI 润色 / 英文化': 'Enable AI polish / English output',
+  '位置：': 'Location: ',
+  '当前访问：': 'Current access: ',
+  '手机打不开？点这里看防火墙设置': 'Cannot open it on your phone? View firewall settings',
+  '可选：启动前设置 STUDYDESK_PIN=你的密码，浏览器会要求输入访问密码。局域网 HTTP 下 PWA 安装与剪贴板权限可能不可用，属正常现象。':
+    'Optional: set STUDYDESK_PIN before starting and the browser will ask for an access password. PWA install and clipboard permissions may be unavailable over plain HTTP.',
+  '当前是 v0.3 可运行 MVP，数据库与 API 已为后续扩展留好接口。':
+    'The current build is a working v0.3 MVP; the database and API are ready for future expansion.',
+  '本地整理 + 图片 OCR': 'Local organizing + image OCR',
+  '文字 / 文件 / 图片输入，结构化笔记与闪卡。': 'Text, file and image input; structured notes and flashcards.',
+  '家庭局域网访问': 'Home network access',
+  '手机/平板同一 Wi-Fi 使用，可选访问密码与 Windows 防火墙脚本。':
+    'Use phones and tablets on the same Wi-Fi, with an optional access PIN and firewall script.',
+  '账号、选科与双语界面': 'Accounts, subjects and the interface',
+  '注册登录、数据隔离、M1/M2 选科、中英文一键切换。':
+    'Sign-up, sign-in, data isolation, M1/M2 selection and language switching.',
+  '间隔重复与复习排程': 'Spaced repetition and revision scheduling',
+  '闪卡按记忆曲线排程、薄弱课题提示、每周复习清单。':
+    'Schedule flashcards by memory curve, flag weak topics, and build a weekly revision list.',
+  '多设备与共享': 'Multi-device and sharing',
+  '账号体系、云端同步、教师/同学共享学科包。':
+    'Accounts, cloud sync, and shared subject packs for teachers and classmates.',
+  '移动 App': 'Mobile app',
+  'PWA 已可安装；后续用 Capacitor 打包 iOS / Android，复用同一套 API 与数据库 schema。':
+    'The PWA is installable today; a Capacitor build can reuse the same API and database schema for iOS and Android.',
+  '需要原文与评卷参考时，请以考评局发布为准。': 'For official source material, refer to the exam authority.',
+  'HKEAA · DSE 历年试题': 'HKEAA · DSE past papers',
+  '官方 Past Papers 与评卷参考入口': 'Official past papers and marking schemes',
+  'HKEAA · 科目资讯': 'HKEAA · Subject information',
+  '评核大纲、试卷结构与比重': 'Assessment frameworks, paper structure and weightings',
+  'EDB · 课程指引': 'EDB · Curriculum guides',
+  '教育局课程文件与学习重点': 'Curriculum documents and learning focuses',
+  '需要原文与评卷参考时，以考评局发布为准。': 'For official source material, refer to the exam authority.',
+  '按这个课题搜索讲解视频，结果会在新标签打开。':
+    'Search explainer videos for this topic; results open in a new tab.',
+  '填入示例文本': 'Fill sample text',
+  '全部学科': 'All subjects',
+  '全部年级': 'All forms',
+  '全部来源': 'All sources',
+  '题目': 'Question',
+  '题': 'questions',
+  '字': 'characters',
+  '个课题': 'topics',
+  '个已覆盖学科': 'subjects covered',
+});
+
+Object.assign(ENGLISH, {
+  '初中 S3': 'Junior S3',
+  '高中 S4–S6': 'Senior S4–S6',
+  '知序 StudyDesk': 'Zhixu StudyDesk',
+});
+
 export function getLang() {
   return current;
 }
@@ -437,7 +511,11 @@ function translateExact(text) {
     [/^已选 (\d+) \/ 2–5 门$/, '$1 of 2–5 selected'],
     [/^(\d+) 份笔记$/, '$1 notes'],
     [/^(\d+) 道题$/, '$1 questions'],
+    [/^(\d+) 题$/, '$1 questions'],
+    [/^(\d+) 字$/, '$1 characters'],
     [/^(\d+) 个课题$/, '$1 topics'],
+    [/^(\d+) 个学科、(\d+) 个课题，按中三至中六分年级组织。每个模块独立整理笔记，可随考纲继续扩充。$/,
+      '$1 subjects and $2 topics, organized by S3–S6. Each module keeps its own notes and can grow with the syllabus.'],
     [/^(\d+) 道练习$/, '$1 practice questions'],
     [/^(\d+) 分钟阅读$/, '$1 min read'],
     [/^(\d+) 个板块$/, '$1 sections'],
@@ -458,6 +536,14 @@ function translateExact(text) {
     [/^距离 (\d{4}) DSE 预计开考$/, '$1 DSE expected start'],
     [/^(\d+) 天后开考$/, '$1 days to exams'],
     [/^香港 DSE · 中三至中六 · (v.+)$/, 'Hong Kong DSE · S3–S6 · $1'],
+    [/^位置：(.+)$/, 'Location: $1'],
+    [/^当前访问：(.+)$/, 'Current access: $1'],
+    [/^知序 StudyDesk (v.+?) · 本地优先 · 专注知识整理与复习。DSE 为香港考试及评核局举办之考试。$/,
+      'Zhixu StudyDesk $1 · Online · Notes, organized.'],
+    [/^可选：启动前设置 (STUDYDESK_PIN=.+?)，浏览器会要求输入访问密码。局域网 HTTP 下 PWA 安装与剪贴板权限可能不可用，属正常现象。$/,
+      'Optional: set $1 before starting and the browser will ask for an access password. PWA install and clipboard permissions may be unavailable over plain HTTP.'],
+    [/^，浏览器会要求输入访问密码。局域网 HTTP 下 PWA 安装与剪贴板权限可能不可用，属正常现象。$/,
+      '; the browser will ask for an access password. PWA install and clipboard permissions may be unavailable over plain HTTP.'],
     [/^(整理完成|更新笔记|删除笔记|重新归纳|预置示范)：(.*)$/, (_, verb, rest) => `${({ 整理完成: 'Organized', 更新笔记: 'Updated', 删除笔记: 'Deleted', 重新归纳: 'Regenerated', 预置示范: 'Sample' })[verb]}: ${rest}`],
   ];
   for (const [pattern, replacement] of patterns) {

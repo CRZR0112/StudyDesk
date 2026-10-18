@@ -126,6 +126,33 @@ const goalOptions = (selected = '') => {
   }).join('')}`;
 };
 const subjectLabel = (subject) => (state.lang === 'en' ? subject?.nameEn || subject?.name || '' : subject?.name || '');
+const SUBJECT_DESCRIPTION_EN = {
+  chi: 'Paper 1 Reading, Paper 2 Writing, Paper 3 Listening and Integrated Skills. Builds a strong foundation in classical Chinese and argumentative writing.',
+  eng: 'Paper 1 Reading, Paper 2 Writing, Paper 3 Listening and Integrated Skills, Paper 4 Speaking.',
+  math: 'Compulsory Mathematics: algebra, functions, geometry, probability and statistics. Focus on careful reading, method marks and fast multiple-choice strategies.',
+  isci: 'S3 Integrated Science: scientific method, matter, energy, life and Earth — a foundation for senior science.',
+  chist: 'From early China to the present, with source analysis, cause-and-effect chains and historical argument.',
+  hist: 'World and Hong Kong history: causes, turning points, source comparison and essay writing.',
+  geog: 'Physical and human geography, with map skills, data interpretation and fieldwork.',
+  csd: 'Hong Kong, national and global issues. Develops multi-perspective analysis, evidence use and values reflection.',
+  phy: 'Mechanics, waves, electricity, magnetism and nuclear energy. Formula understanding and experimental data are key.',
+  chem: 'Microscopic structure and macroscopic properties, stoichiometry, acids and redox, organic chemistry and equilibrium.',
+  bio: 'From molecules to ecosystems: cells, metabolism, genetics, human physiology and ecology.',
+  econ: 'Micro and macroeconomics: prices, firms, national income, money and international trade.',
+  bafs: 'Accounting cycle, costing, financial management and business management, with reports and case analysis.',
+  ict: 'Computer systems, data representation, programming, databases, networks and information security.',
+  m1: 'Calculus and statistics: limits, differentiation, integration, binomial theorem and probability distributions.',
+  m2: 'Algebra and calculus: induction, binomial theorem, vectors, matrices, differentiation and integration.',
+};
+const subjectDescription = (subject) => (state.lang === 'en'
+  ? subject?.descriptionEn || SUBJECT_DESCRIPTION_EN[subject?.code] || subject?.description || ''
+  : subject?.description || '');
+const subjectGlyph = (subject) => {
+  if (state.lang !== 'en') return subject?.glyph || subject?.name?.slice(0, 1) || '知';
+  if (subject?.code === 'm1') return 'M1';
+  if (subject?.code === 'm2') return 'M2';
+  return subject?.glyphEn || subject?.nameEn?.slice(0, 1) || 'S';
+};
 const subjectNameFor = (code, fallback) => {
   if (state.lang !== 'en') return fallback;
   return state.catalog?.subjects?.find((subject) => subject.code === code)?.nameEn || fallback;
@@ -215,8 +242,8 @@ function authSubjectGroups(form) {
 
 function authSubjectCard(subject, { locked = false, selected = false } = {}) {
   return `<button type="button" class="auth-subject ${selected ? 'is-selected' : ''} ${locked ? 'is-locked' : ''}" data-auth-subject="${esc(subject.code)}" ${locked ? 'data-locked="1"' : ''} aria-pressed="${selected}">
-    <span class="auth-subject-glyph" style="--subject-color:${colorOf(subject)}">${esc(subject.glyph || subject.name.slice(0, 1))}</span>
-    <span class="auth-subject-copy"><strong>${esc(subjectLabel(subject))}</strong><small>${esc(state.lang === 'en' ? subject.name : subject.nameEn || '')}</small></span>
+    <span class="auth-subject-glyph" style="--subject-color:${colorOf(subject)}">${esc(subjectGlyph(subject))}</span>
+    <span class="auth-subject-copy"><strong>${esc(subjectLabel(subject))}</strong><small>${esc(state.lang === 'en' ? String(subject.code || '').toUpperCase() : subject.nameEn || '')}</small></span>
     <span class="auth-subject-check">${selected ? icon('check', 14) : (locked ? icon('lock', 12) : icon('plus', 13))}</span>
   </button>`;
 }
@@ -276,31 +303,30 @@ function renderAuth() {
   view.innerHTML = `<div class="auth-page">
     <section class="auth-brand-panel">
       <div class="auth-brand-top">
-        <span class="brand-mark">知</span>
-        <div class="brand-copy"><strong>知序</strong><small>STUDYDESK</small></div>
+        <span class="brand-mark">Z</span>
+        <div class="brand-copy"><strong>Zhixu</strong><small>STUDYDESK</small></div>
       </div>
       <div class="auth-brand-copy">
-        <span class="eyebrow" style="color:#d9bd85">DSE · S3–S6 · LOCAL FIRST</span>
-        <h1>把今天的输入，<br /><em>变成考场的输出。</em></h1>
-        <p>整理笔记、建立自己的知识库，按选科组织每一份复习材料。每个账号的笔记与设置独立保存。</p>
+        <span class="eyebrow" style="color:#d9bd85">DSE · S3–S6 · ONLINE</span>
+        <h1>Turn today’s input,<br /><em>into exam-day output.</em></h1>
+        <p>Organize notes, build your own knowledge base, and keep every revision pack by subject. Notes and settings are isolated per account.</p>
         <div class="auth-benefits">
-          <div>${icon('notes', 16)}<span>文字 / 文件 / 图片 OCR</span></div>
-          <div>${icon('sparkles', 16)}<span>结构化概念、重点与闪卡</span></div>
-          <div>${icon('lock', 16)}<span>本地 SQLite，账号隔离</span></div>
+          <div>${icon('notes', 16)}<span>Text / files / image OCR</span></div>
+          <div>${icon('sparkles', 16)}<span>Structured concepts, key points and flashcards</span></div>
+          <div>${icon('lock', 16)}<span>Server SQLite, isolated accounts</span></div>
         </div>
       </div>
-      <div class="auth-brand-foot">香港 DSE · 中三至中六 · v${esc(state.bootstrap?.version || '0.4.0')}</div>
+      <div class="auth-brand-foot">Hong Kong DSE · S3–S6 · v${esc(state.bootstrap?.version || '0.4.0')}</div>
     </section>
     <section class="auth-panel">
       <div class="auth-panel-inner">
-        <button class="auth-lang" type="button" data-action="toggle-lang">${state.lang === 'en' ? '中文' : 'EN'}</button>
         <div class="auth-tabs">
           <button type="button" class="${auth.mode === 'login' ? 'is-active' : ''}" data-auth-mode="login">登录</button>
           <button type="button" class="${isRegister ? 'is-active' : ''}" data-auth-mode="register">注册</button>
         </div>
         ${authErrorMarkup()}
         ${isRecover ? renderRecoverForm() : !isRegister ? renderLoginForm() : step === 1 ? renderRegisterStepOne() : renderRegisterStepTwo(catalog)}
-        <p class="auth-footnote">${isRecover ? '恢复码只在本地校验；重置后旧密码和旧会话立即失效。' : isRegister ? '注册后可在「设置」中修改年级、选科与界面语言。' : '首次使用？先创建一个账号；原有示范笔记会保留。'}</p>
+        <p class="auth-footnote">${isRecover ? 'Recovery codes are checked locally; resetting revokes the old password and sessions.' : isRegister ? 'You can change your form and subjects later in Settings.' : 'First time? Create an account. Sample notes stay available.'}</p>
       </div>
     </section>
   </div>`;
@@ -579,7 +605,7 @@ function bindAuthEvents() {
 async function completeAuth(user, recoveryCode = '') {
   state.user = user;
   state.auth = null;
-  if (user.language) state.lang = setLang(user.language);
+  state.lang = setLang('en');
   document.body.classList.remove('auth-mode');
   await loadBootstrap();
   toast(state.lang === 'en' ? `Welcome, ${user.displayName || user.username}.` : `欢迎，${user.displayName || user.username}。`, 'success');
@@ -724,7 +750,7 @@ function initSupportWidget() {
 
 async function init() {
   const queryLang = new URLSearchParams(location.search).get('lang');
-  if (queryLang === 'en' || queryLang === 'zh') state.lang = setLang(queryLang);
+  state.lang = getLang();
   hydrateIcons();
   bindGlobalEvents();
   initSupportWidget();
@@ -739,7 +765,7 @@ async function init() {
       return;
     }
     state.user = me.user;
-    if (me.user.language) state.lang = setLang(me.user.language);
+    state.lang = setLang('en');
     document.body.classList.remove('auth-mode');
     await loadBootstrap();
     await renderRoute();
@@ -833,9 +859,9 @@ function updateStatus() {
     el.hidden = true;
   }
   if (b.features.ai) {
-    el.innerHTML = `<span class="status-dot"></span>AI 增强已开启`;
+    el.innerHTML = `<span class="status-dot"></span>AI enabled`;
   } else {
-    el.innerHTML = `<span class="status-dot"></span>OCR 就绪`;
+    el.innerHTML = `<span class="status-dot"></span>OCR ready`;
   }
 }
 
@@ -948,12 +974,12 @@ function noteCard(note) {
 }
 
 function subjectCard(subject) {
-  return `<a class="subject-card ${subject.stage === 'junior' ? 'is-junior' : ''}" href="#/subjects/${esc(subject.code)}" data-glyph="${esc(subject.glyph || '知')}" style="--subject-color:${colorOf(subject)}">
-    <div class="subject-glyph">${esc(subject.glyph || '知')}</div>
+  return `<a class="subject-card ${subject.stage === 'junior' ? 'is-junior' : ''}" href="#/subjects/${esc(subject.code)}" data-glyph="${esc(subjectGlyph(subject))}" style="--subject-color:${colorOf(subject)}">
+    <div class="subject-glyph">${esc(subjectGlyph(subject))}</div>
     <h3>${esc(subjectLabel(subject))}</h3>
-    <p>${esc(state.lang === 'en' ? subject.descriptionEn || subject.description : subject.description || '')}</p>
+    <p>${esc(subjectDescription(subject))}</p>
     <div class="subject-card-foot">
-      <span>${subject.topics.length} 个课题</span><span class="dot-sep"></span><span>${subject.questionCount} 题</span>
+      <span>${subject.topics.length} ${state.lang === 'en' ? 'topics' : '个课题'}</span><span class="dot-sep"></span><span>${subject.questionCount} ${state.lang === 'en' ? 'questions' : '题'}</span>
       <span class="arrow">${icon('arrow-right', 15)}</span>
     </div>
   </a>`;
@@ -1171,11 +1197,11 @@ async function renderSubjectDetail(seq, code) {
   const forms = [...new Set(subject.topics.map((t) => t.form))].sort();
   view.innerHTML = `
     <div class="note-breadcrumb" style="margin-bottom:14px"><a href="#/subjects">学科模块</a>${icon('chevron-right', 11)}<span>${esc(subjectLabel(subject))}</span></div>
-    <section class="subject-hero" data-glyph="${esc(subject.glyph)}" style="--subject-color:${colorOf(subject)}">
-      <div class="subject-hero-glyph">${esc(subject.glyph)}</div>
+    <section class="subject-hero" data-glyph="${esc(subjectGlyph(subject))}" style="--subject-color:${colorOf(subject)}">
+      <div class="subject-hero-glyph">${esc(subjectGlyph(subject))}</div>
       <div>
         <h1>${esc(subjectLabel(subject))} ${isMine ? `<span class="badge badge-gold" style="vertical-align:middle">${state.lang === 'en' ? 'My subject' : '我的选科'}</span>` : `<span class="badge badge-muted" style="vertical-align:middle">${state.lang === 'en' ? 'Not selected' : '未选'}</span>`}</h1>
-        <p>${esc(state.lang === 'en' ? subject.descriptionEn || subject.description : subject.description)}</p>
+        <p>${esc(subjectDescription(subject))}</p>
         <div class="subject-hero-stats">
           <div><strong>${subject.topics.length}</strong><span>${state.lang === 'en' ? (subject.topics.length === 1 ? 'topic' : 'topics') : '课题'}</span></div>
           <div><strong>${subject.noteCount}</strong><span>${state.lang === 'en' ? (subject.noteCount === 1 ? 'note' : 'notes') : '笔记'}</span></div>
@@ -1239,13 +1265,13 @@ async function renderCapture(seq, query) {
     </div>
     <div class="capture-layout">
       <form class="capture-card" id="capture-form">
-        <div class="capture-card-head"><h2>输入材料</h2><p>文字、文件、图片三选一。图片会调用本机 OCR；PDF 只提取文字层。</p></div>
+        <div class="capture-card-head"><h2>Input</h2><p>Pick text, a file or an image. Images use server OCR; PDFs use the text layer.</p></div>
         <div class="capture-body">
           <div class="field-grid">
-            <div class="field"><label for="cap-subject">学科</label><select id="cap-subject" name="subject">${subjectOptions(subject.code)}</select></div>
-            <div class="field"><label for="cap-form">年级</label><select id="cap-form" name="form">${formOptions(subject, form)}</select></div>
-            <div class="field"><label for="cap-topic">课题</label><select id="cap-topic" name="topic">${topicOptions(subject, topic)}</select></div>
-            <div class="field field-wide"><label for="cap-title">笔记标题（可选）</label><input id="cap-title" name="title" placeholder="例如：光合作用 · 光反应与卡尔文循环" maxlength="140" /></div>
+            <div class="field"><label for="cap-subject">Subject</label><select id="cap-subject" name="subject">${subjectOptions(subject.code)}</select></div>
+            <div class="field"><label for="cap-form">Form</label><select id="cap-form" name="form">${formOptions(subject, form)}</select></div>
+            <div class="field"><label for="cap-topic">Topic</label><select id="cap-topic" name="topic">${topicOptions(subject, topic)}</select></div>
+            <div class="field field-wide"><label for="cap-title">Note title (optional)</label><input id="cap-title" name="title" placeholder="e.g. Photosynthesis · light reactions and the Calvin cycle" maxlength="140" /></div>
           </div>
           <div class="mode-tabs" role="tablist">
             <button type="button" class="mode-tab ${mode === 'text' ? 'is-active' : ''}" data-mode="text">${icon('text', 15)} 粘贴文字</button>
@@ -1253,14 +1279,14 @@ async function renderCapture(seq, query) {
             <button type="button" class="mode-tab ${mode === 'image' ? 'is-active' : ''}" data-mode="image">${icon('image', 15)} 图片 OCR</button>
           </div>
           <div class="mode-panel" data-panel="text" ${mode !== 'text' ? 'hidden' : ''}>
-            <textarea class="capture-textarea" id="cap-text" placeholder="把课堂笔记、课本段落或网上资料粘贴在这里…&#10;&#10;小提示：保留标题、编号与「注意 / 例如 / 公式」等提示词，归纳结果会更贴近你的课堂结构。"></textarea>
+            <textarea class="capture-textarea" id="cap-text" placeholder="Paste class notes, textbook passages or web material here…&#10;&#10;Tip: keep headings, numbering and cues like “note / example / formula” to make the structure closer to your class."></textarea>
             <div class="textarea-meta"><span id="char-count">0 字</span><button type="button" data-action="fill-sample">填入示例文本</button></div>
           </div>
           <div class="mode-panel" data-panel="file" ${mode !== 'file' ? 'hidden' : ''}>
             <label class="dropzone" id="file-drop">
               ${icon('upload', 26)}
-              <strong>拖入文件，或点击选择</strong>
-              <span>支持 .txt / .md / .docx / .pptx / .xlsx / .pdf，单文件不超过 24 MB</span>
+              <strong>Drop a file, or click to choose</strong>
+              <span>Supports .txt / .md / .docx / .pptx / .xlsx / .pdf, up to 24 MB</span>
               <input type="file" id="cap-file" accept=".txt,.md,.markdown,.csv,.json,.docx,.pptx,.xlsx,.pdf" />
             </label>
             <div id="file-preview"></div>
@@ -1268,8 +1294,8 @@ async function renderCapture(seq, query) {
           <div class="mode-panel" data-panel="image" ${mode !== 'image' ? 'hidden' : ''}>
             <label class="dropzone" id="image-drop">
               ${icon('camera', 26)}
-              <strong>拖入图片，或点击拍照 / 选择</strong>
-              <span>支持 PNG / JPG / WebP。图片会先保存为附件，再用 Windows OCR 识别文字；识别结果可回到笔记中校对。</span>
+              <strong>Drop an image, or click to take / choose</strong>
+              <span>Supports PNG / JPG / WebP. The image is saved, then server OCR extracts text; proofread it in the note.</span>
               <input type="file" id="cap-image" accept="image/*" />
             </label>
             <div id="image-preview"></div>
@@ -1277,25 +1303,25 @@ async function renderCapture(seq, query) {
           <div class="capture-actions">
             <button class="btn btn-primary" type="submit" id="capture-submit">${icon('wand', 16)} 开始归纳</button>
             <a class="btn btn-ghost" href="#/notes">取消</a>
-            <span class="privacy">${icon('lock', 12)} 材料只存在本机 SQLite</span>
+            <span class="privacy">${icon('lock', 12)} Stored on the server</span>
           </div>
         </div>
       </form>
       <aside class="capture-side">
         <div class="side-card">
-          <h3>你会得到什么</h3>
-          <p>不是简单摘要，而是一份可以直接温习的「学习包」。</p>
+          <h3>What you get</h3>
+          <p>Not just a summary — a revision-ready study pack.</p>
           <div class="output-list">
-            <div class="output-item"><span class="output-num">01</span><div><strong>知识脉络</strong><span>把材料拆成 3–4 条分支</span></div></div>
-            <div class="output-item"><span class="output-num">02</span><div><strong>概念与公式</strong><span>术语定义、反应式、关键表述</span></div></div>
-            <div class="output-item"><span class="output-num">03</span><div><strong>重点与陷阱</strong><span>按考点密度排序，标出易错处</span></div></div>
-            <div class="output-item"><span class="output-num">04</span><div><strong>自测闪卡</strong><span>点击翻面，先回忆再看答案</span></div></div>
+            <div class="output-item"><span class="output-num">01</span><div><strong>Knowledge map</strong><span>Split the material into 3–4 branches</span></div></div>
+            <div class="output-item"><span class="output-num">02</span><div><strong>Concepts &amp; formulas</strong><span>Definitions, equations, key statements</span></div></div>
+            <div class="output-item"><span class="output-num">03</span><div><strong>Key points &amp; pitfalls</strong><span>Ranked by exam relevance; mistakes flagged</span></div></div>
+            <div class="output-item"><span class="output-num">04</span><div><strong>Flashcards</strong><span>Flip to recall before checking</span></div></div>
           </div>
         </div>
         <div class="side-card">
-          <h3>整理引擎</h3>
-          <p>${state.bootstrap.features.ai ? '已配置 AI 增强：会先调用你的模型，失败时自动回退本地引擎。' : '当前使用本地归纳引擎：离线、可预测、不上传材料。可在设置中接入 OpenAI 兼容接口。'}</p>
-          <a class="link-more" style="margin-top:10px" href="#/settings">${icon('settings', 13)} 配置引擎</a>
+          <h3>Engine</h3>
+          <p>Uses the server-side organizer; predictable and no external AI required. Connect an OpenAI-compatible endpoint in Settings.</p>
+          <a class="link-more" style="margin-top:10px" href="#/settings">${icon('settings', 13)} Configure engine</a>
         </div>
       </aside>
     </div>
@@ -1795,8 +1821,7 @@ async function renderSettings(seq) {
             <div class="field"><label>年级</label><select name="form">${['S3', 'S4', 'S5', 'S6'].map((f) => `<option value="${f}" ${profile.form === f ? 'selected' : ''}>${formLabel(f)}</option>`).join('')}</select></div>
             <div class="field"><label>目标 DSE 年份</label><select name="goal">${goalOptions(profile.goal)}</select></div>
           </div>
-          <div class="field"><label>界面语言 / Language</label><select name="language"><option value="zh" ${profile.language !== 'en' ? 'selected' : ''}>中文</option><option value="en" ${profile.language === 'en' ? 'selected' : ''}>English</option></select><p class="tiny muted" style="margin-top:5px">切换界面语言；非中文 / CSD 科目的知识稿为英文，中文与 CSD 保留中文。</p></div>
-          <button class="btn btn-primary" type="submit">保存档案</button>
+          <button class="btn btn-primary" type="submit">Save profile</button>
         </form>
       </section>
       <section class="settings-card">
@@ -1845,7 +1870,7 @@ async function renderSettings(seq) {
         </div>
         <p class="tiny muted" style="margin-top:10px">当前访问：${esc(window.location.origin)}</p>
         <details style="margin-top:10px"><summary class="tiny muted">手机打不开？点这里看防火墙设置</summary><p class="tiny muted" style="margin-top:7px">Windows 首次运行可能拦截入站连接。用「管理员」PowerShell 执行：<br /><code class="inline-code">New-NetFirewallRule -DisplayName "知序 StudyDesk LAN" -Direction Inbound -Protocol TCP -LocalPort 4173 -Action Allow -Profile Private,Domain</code></p></details>
-        <p class="tiny muted" style="margin-top:10px">可选：启动前设置 <code class="inline-code">STUDYDESK_PIN=你的密码</code>，浏览器会要求输入访问密码。局域网 HTTP 下 PWA 安装与剪贴板权限可能不可用，属正常现象。</p>
+        <p class="tiny muted" style="margin-top:10px">Optional: set <code class="inline-code">STUDYDESK_PIN=your-password</code> before starting; the browser will ask for an access password. PWA install and clipboard permissions may be unavailable over plain HTTP.</p>
       </section>
       <section class="settings-card">
         <h2>后续迭代</h2><p>当前是 v0.3 可运行 MVP，数据库与 API 已为后续扩展留好接口。</p>
@@ -1875,7 +1900,7 @@ async function renderSettings(seq) {
             name: fd.get('name'),
             form: fd.get('form'),
             goal: fd.get('goal'),
-            language: fd.get('language') === 'en' ? 'en' : 'zh',
+            language: 'en',
           },
         }),
       });
