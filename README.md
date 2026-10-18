@@ -103,12 +103,16 @@ New-NetFirewallRule -DisplayName "知序 StudyDesk LAN" -Direction Inbound -Prot
 
 ### 图片 OCR 说明
 
-图片 OCR 调用 **Windows 自带的 `Windows.Media.Ocr`**（通过 `server/scripts/ocr.ps1`），因此：
+图片 OCR 支持两种运行环境：
 
-- Windows 10/11 可直接使用；需要安装中文 OCR 语言包（中文系统通常已带）
-- macOS / Linux 上图片会保存为附件，但无法自动识别文字；可把图片中的文字粘贴到「文字」输入框
+- **Windows**：调用系统自带的 `Windows.Media.Ocr`（`server/scripts/ocr.ps1`），需要中文 OCR 语言包
+- **Linux / Docker**：调用 `tesseract`，Docker 镜像已包含繁体中文、简体中文与英文语言包
+
+说明：
+
 - OCR 结果会在笔记中标注「建议对照原图校对」，专有名词、公式和标点可能有误
 - 单文件上限 24 MB
+- macOS 本地运行没有内置 OCR；可用 Docker 或把图片中的文字粘贴到「文字」输入框
 
 ---
 
@@ -175,7 +179,7 @@ New-NetFirewallRule -DisplayName "知序 StudyDesk LAN" -Direction Inbound -Prot
 
 - **文字**：粘贴课堂笔记、网页资料、OCR 校对后的文本
 - **文件**：`.txt / .md / .csv / .json / .html / .docx / .pptx / .xlsx / .pdf`
-- **图片**：`.png / .jpg / .webp / .bmp / .gif / .tiff`，Windows 自动 OCR
+- **图片**：`.png / .jpg / .webp / .bmp / .gif / .tiff`，Windows 或 Linux Tesseract 自动 OCR
 - **元数据**：学科、年级、课题、标题；课题会自动带出对应年级
 - **重组**：保存后可「重新归纳」；标题可单独修改；可导出 Markdown 或打印为 PDF
 
@@ -183,7 +187,7 @@ New-NetFirewallRule -DisplayName "知序 StudyDesk LAN" -Direction Inbound -Prot
 
 ```text
 原始材料
-  → 解码 / 解压 / PDF 文字层 / Windows OCR
+  → 解码 / 解压 / PDF 文字层 / Windows OCR 或 Tesseract
   → 文本清洗（保留段落与换行，只清理 OCR 逐字空格）
   → 标题识别 + 句子切分 + 学科术语加权
   → 概念定义、公式、易错句、例子抽取
@@ -238,7 +242,7 @@ API Key:  留空
 3. 中文、CSD 跳过英文化，保留中文
 4. 翻译失败会重试 / 拆句 / 使用术语兜底；仍失败则保留原文并在 warnings 中提示
 
-**费用**：Ollama 本地推理免费，只消耗电脑算力；不会产生 API 账单。图片 OCR 也是本机 Windows OCR，免费。
+**费用**：Ollama 本地推理免费，只消耗电脑算力；不会产生 API 账单。图片 OCR 使用本机 Windows OCR 或服务器 Tesseract，也免费。
 
 局域网内其他设备（手机/平板）打开网站后，调用的是**主机上的 Ollama**；手机不需要安装模型。主机休眠、关机或 Ollama 停止时，AI 英文化不可用。AI 配置是全局设置，局域网内已登录账号共用同一个本地模型。
 
@@ -275,7 +279,7 @@ server/
   db.mjs                   SQLite 连接、迁移、种子、统计
   engine.mjs               本地归纳引擎（无外部依赖）
   extract.mjs              TXT/MD/DOCX/PPTX/XLSX/PDF 提取
-  ocr.mjs + scripts/ocr.ps1  Windows OCR 桥
+  ocr.mjs + scripts/ocr.ps1  Windows OCR / Linux Tesseract 桥
   network.mjs              局域网地址探测
   ai.mjs                   OpenAI 兼容 AI 增强与回退
   translate.mjs            Ollama / OpenAI 逐段英文化
