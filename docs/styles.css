@@ -120,6 +120,28 @@ a { color: inherit; }
   font-weight: 700;
 }
 
+.lang-switch {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid rgba(20, 48, 40, 0.2);
+  border-radius: 999px;
+  color: var(--ink-2);
+  text-decoration: none;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.lang-switch:hover {
+  color: var(--jade-3);
+  border-color: var(--jade-3);
+}
+
 /* hero */
 
 .hero {
