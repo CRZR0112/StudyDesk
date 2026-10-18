@@ -11,6 +11,22 @@
 
 ## 启动
 
+### 方式 A：一键安装（Debian 12，推荐）
+
+在服务器 SSH 里以 root 执行：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/CRZR0112/StudyDesk/main/deploy/install.sh | bash
+```
+
+默认使用 `你的公网IP.sslip.io` 作为临时 HTTPS 域名（例如 `64-188-27-218.sslip.io`），不需要先买域名。换成自己的域名：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/CRZR0112/StudyDesk/main/deploy/install.sh | bash -s -- study.example.com
+```
+
+### 方式 B：手动
+
 ```bash
 cp deploy/.env.example .env
 # 编辑 .env：DOMAIN、STUDYDESK_PUBLIC_URL
