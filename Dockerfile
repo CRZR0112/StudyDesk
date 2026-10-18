@@ -6,6 +6,11 @@ ENV HOST=0.0.0.0
 ENV PORT=4173
 ENV STUDYDESK_DATA_DIR=/app/data
 
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+    tesseract-ocr tesseract-ocr-eng tesseract-ocr-chi-sim tesseract-ocr-chi-tra \
+  && rm -rf /var/lib/apt/lists/*
+
 COPY package.json ./
 COPY server ./server
 COPY public ./public

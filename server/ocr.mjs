@@ -36,12 +36,48 @@ function isGarbageOcrLine(line) {
 
 
 export function ocrAvailable() {
-  return process.platform === 'win32' && fs.existsSync(SCRIPT);
+  if (process.platform === 'win32') return fs.existsSync(SCRIPT);
+  const result = spawnSync('tesseract', ['--version'], { stdio: 'ignore', timeout: 5000 });
+  return !result.error && result.status === 0;
+}
+
+function finalizeOcr(rawLines, language) {
+  const lines = rawLines.map(normalizeOcrLine).filter((line) => line && !isGarbageOcrLine(line));
+  let text = lines.join('\n').trim();
+  if (!text) throw new Error('图片中没有识别到可用文字。');
+  // 清理 OCR 常见的逐字空格与错误标点。
+  text = text
+    .replace(/([\u3400-\u9fff])[ \t]+(?=[\u3400-\u9fff])/g, '$1')
+    .replace(/[ \t]+([，。；：、！？])/g, '$1')
+    .replace(/(\d)[ \t]*[·•][ \t]*/g, '$1. ')
+    .replace(/[•·][ \t]*/g, '')
+    .replace(/，{2,}/g, '，')
+    .replace(/。{2,}/g, '。');
+  return { text, lines, language };
+}
+
+function ocrWithTesseract(imagePath) {
+  fs.mkdirSync(TMP_DIR, { recursive: true });
+  const result = spawnSync(
+    'tesseract',
+    [imagePath, 'stdout', '-l', 'chi_tra+chi_sim+eng', '--psm', '6'],
+    { encoding: 'utf8', timeout: 90000, maxBuffer: 32 * 1024 * 1024 },
+  );
+  if (result.error) {
+    throw new Error(`无法启动 OCR 程序：${result.error.message}`);
+  }
+  if (result.status !== 0) {
+    throw new Error((result.stderr || 'OCR 识别失败。').trim());
+  }
+  return finalizeOcr(String(result.stdout || '').split(/\r?\n/), 'chi_tra+chi_sim+eng');
 }
 
 export async function ocrImage(imagePath) {
   if (!ocrAvailable()) {
-    throw new Error('当前系统没有可用的 Windows OCR。');
+    throw new Error('当前系统没有可用的 OCR。');
+  }
+  if (process.platform !== 'win32') {
+    return ocrWithTesseract(imagePath);
   }
   fs.mkdirSync(TMP_DIR, { recursive: true });
   const outputPath = path.join(TMP_DIR, `ocr-${Date.now()}-${Math.random().toString(36).slice(2, 8)}.json`);
@@ -78,18 +114,7 @@ export async function ocrImage(imagePath) {
     if (!data.ok) {
       throw new Error(data.error || 'OCR 识别失败。');
     }
-    const rawLines = (data.lines || []).map(normalizeOcrLine).filter((line) => line && !isGarbageOcrLine(line));
-    let text = rawLines.join('\n').trim();
-    if (!text) throw new Error('图片中没有识别到可用文字。');
-    // 清理 OCR 常见的逐字空格与错误标点。
-    text = text
-      .replace(/([\u3400-\u9fff])[ \t]+(?=[\u3400-\u9fff])/g, '$1')
-      .replace(/[ \t]+([，。；：、！？])/g, '$1')
-      .replace(/(\d)[ \t]*[·•][ \t]*/g, '$1. ')
-      .replace(/[•·][ \t]*/g, '')
-      .replace(/，{2,}/g, '，')
-      .replace(/。{2,}/g, '。');
-    return { text, lines: rawLines, language: data.language || 'zh-Hans-CN' };
+    return finalizeOcr(data.lines || [], data.language || 'zh-Hans-CN');
   } finally {
     try {
       fs.unlinkSync(outputPath);
